@@ -1,6 +1,5 @@
 import { motion } from "framer-motion";
 import { SiDiscord, SiGithub, SiInstagram, SiLinkedin } from "react-icons/si";
-import { CiMail } from "react-icons/ci";
 import { Card } from "@/components/ui/card";
 
 export default function Contact() {

@@ -1,4 +1,3 @@
-import SpotlightCard from "@/components/SpotlightCard";
 import { motion } from "framer-motion";
 import ProjectCard from "./ProjectCard";
 

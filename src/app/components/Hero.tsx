@@ -59,7 +59,7 @@ export default function Hero() {
       transition={{ duration: 0.8, ease: "easeOut" }}
     >
       <div>
-        <div className="text-2xl text-secondary">Hi, I'm</div>
+        <div className="text-2xl text-secondary">Hi, I{"'"}m</div>
         <div className="text-6xl sm:text-8xl text-primary font-bold text-shadow-lg">
           <span className="cursor-target">Fiddelis.</span>
         </div>
