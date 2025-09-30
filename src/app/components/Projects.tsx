@@ -5,7 +5,7 @@ export default function Projects() {
   return (
     <motion.section
       id="projects"
-      className="flex flex-col h-[800px] font-bold"
+      className="flex flex-col  font-bold"
       initial={{ opacity: 0, y: 40 }}
       whileInView={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.8, ease: "easeOut" }}

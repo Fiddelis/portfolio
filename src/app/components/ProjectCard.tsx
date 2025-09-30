@@ -41,7 +41,7 @@ export default function ProjectCard({
             <ArrowUpRight className="w-4 h-4 transition-transform duration-200 group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
           </a>
         </CardTitle>
-        <CardDescription className="text-foreground">
+        <CardDescription className="text-foreground text-justify">
           {description}
         </CardDescription>
       </CardHeader>
