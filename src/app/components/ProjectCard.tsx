@@ -28,43 +28,49 @@ export default function ProjectCard({
   badges,
 }: ProjectCardProps) {
   return (
-    <Card className="bg-background border-2 flex flex-col transition-all duration-500 hover:scale-105 hover:shadow-xl">
-      {/* Header fixo no topo */}
-      <CardHeader>
-        <CardTitle className="text-primary cursor-target">
-          <a
-            href={link}
-            target="_blank"
-            className="group cursor-none hover:underline flex items-center gap-2"
-          >
-            {title}
-            <ArrowUpRight className="w-4 h-4 transition-transform duration-200 group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
-          </a>
-        </CardTitle>
-        <CardDescription className="text-foreground text-justify">
-          {description}
-        </CardDescription>
-      </CardHeader>
+    <a
+      href={link}
+      target="_blank"
+      className="group cursor-none flex items-center gap-2"
+    >
+      <Card className="h-full bg-background border-2 flex flex-col transition-all duration-500 hover:scale-105 hover:shadow-xl">
+        {/* Header fixo no topo */}
+        <CardHeader>
+          <CardTitle className="text-primary">{title}</CardTitle>
+          <CardDescription className="text-foreground text-justify">
+            {description}
+          </CardDescription>
+        </CardHeader>
 
-      {/* Wrapper flex-1 mantém o conteúdo colado acima do footer */}
-      <div className="flex-1 flex items-end justify-center">
-        <CardContent className="flex justify-center align-bottom">
-          <Image
-            src={imageSrc}
-            alt={imageAlt}
-            width={400}
-            height={400}
-            className="drop-shadow-2xl"
-          />
-        </CardContent>
-      </div>
+        {/* Wrapper flex-1 mantém o conteúdo colado acima do footer */}
+        <div className="flex-1 flex items-end justify-center">
+          <CardContent className="flex justify-center align-bottom">
+            <Image
+              src={imageSrc}
+              alt={imageAlt}
+              width={400}
+              height={400}
+              className="drop-shadow-2xl"
+            />
+          </CardContent>
+        </div>
 
-      {/* Sempre no final */}
-      <CardFooter className="mt-auto flex gap-2">
-        {badges.map((badge, i) => (
-          <Badge key={i}>{badge}</Badge>
-        ))}
-      </CardFooter>
-    </Card>
+        {/* Sempre no final */}
+        <CardFooter className="mt-auto">
+          <div className="flex justify-between w-full">
+            <div>
+              {badges.map((badge, i) => (
+                <Badge key={i} className="m-1">
+                  {badge}
+                </Badge>
+              ))}
+            </div>
+            <div>
+              <ArrowUpRight className="w-6 h-6 transition-transform duration-200 group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
+            </div>
+          </div>
+        </CardFooter>
+      </Card>
+    </a>
   );
 }

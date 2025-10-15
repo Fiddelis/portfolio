@@ -1,17 +1,19 @@
 import { motion } from "framer-motion";
 import ProjectCard from "./ProjectCard";
+import { Button } from "@/components/ui/button";
+import { FaArrowDown } from "react-icons/fa";
 
 export default function Projects() {
   return (
     <motion.section
       id="projects"
-      className="flex flex-col  font-bold"
+      className="flex flex-col font-bold min-h-screen justify-center"
       initial={{ opacity: 0, y: 40 }}
       whileInView={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.8, ease: "easeOut" }}
       viewport={{ once: true, amount: 0.2 }}
     >
-      <h1 className="self-center text-4xl text-shadow-lg cursor-target mb-20">
+      <h1 className="self-center text-4xl text-shadow-lg cursor-target mb-20 text-center">
         My Featured <span className="text-primary">Projects</span>
       </h1>
 

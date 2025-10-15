@@ -7,8 +7,13 @@ import Contact from "./components/Contact";
 
 export default function Home() {
   return (
-    <section id="home" className="font-mono max-w-9/10 sm:max-w-3/4 mx-auto">
-      <TargetCursor spinDuration={4} hideDefaultCursor={true} />
+    <section
+      id="home"
+      className="font-mono max-w-9/10 sm:max-w-3/4 mx-auto flex flex-col"
+    >
+      <div className="hidden md:block">
+        <TargetCursor spinDuration={4} hideDefaultCursor={true} />
+      </div>
       <Nav />
       <Hero />
       <Projects />

@@ -53,7 +53,7 @@ export default function Hero() {
 
   return (
     <motion.section
-      className="mt-28 h-[800px] flex flex-col justify-items-center align-middle text-center gap-20"
+      className="flex flex-col justify-items-center align-middle text-center gap-20 min-h-screen justify-center "
       initial={{ opacity: 0, y: 20 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.8, ease: "easeOut" }}
@@ -75,40 +75,45 @@ export default function Hero() {
       </div>
 
       <p className="text-xl text-foreground text-center">
-        <span className="cursor-target text-primary">
+        <span className="cursor-target text-primary md:whitespace-nowrap">
           Software Engineering Student
         </span>{" "}
         at Instituto Nacional de Telecomunicações (INATEL) and I have been
         dedicated to the study and application of technologies involving{" "}
-        <span className="cursor-target text-primary">information security</span>
+        <span className="cursor-target text-primary md:whitespace-nowrap">
+          information security
+        </span>
         ,{" "}
-        <span className="cursor-target text-primary">
+        <span className="cursor-target text-primary md:whitespace-nowrap">
           artificial intelligence
         </span>
         , and{" "}
-        <span className="cursor-target text-primary">
+        <span className="cursor-target text-primary md:whitespace-nowrap">
           software development.
         </span>
       </p>
-      <LogoLoop
-        logos={techLogos}
-        className="text-foreground"
-        speed={120}
-        direction="left"
-        logoHeight={48}
-        gap={40}
-        pauseOnHover
-        scaleOnHover
-        fadeOut
-        fadeOutColor="#ede9ee"
-        ariaLabel="Technology partners"
-      />
-
-      <a href="#projects">
-        <Button className="w-12 h-12 rounded-full self-center animate-bounce bg-accent cursor-none">
-          <FaArrowDown className="w-12 h-12" />
-        </Button>
-      </a>
+      <div>
+        <LogoLoop
+          logos={techLogos}
+          className="text-foreground"
+          speed={120}
+          direction="left"
+          logoHeight={48}
+          gap={40}
+          pauseOnHover
+          scaleOnHover
+          fadeOut
+          fadeOutColor="#ede9ee"
+          ariaLabel="Technology partners"
+        />
+      </div>
+      <div className="hidden md:block">
+        <a href="#projects" className="flex align-middle justify-center">
+          <Button className="w-12 h-12 rounded-full self-center animate-bounce bg-accent cursor-none">
+            <FaArrowDown className="w-12 h-12" />
+          </Button>
+        </a>
+      </div>
     </motion.section>
   );
 }
