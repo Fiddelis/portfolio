@@ -50,7 +50,7 @@ export default function ProjectCard({
               alt={imageAlt}
               width={400}
               height={400}
-              className="drop-shadow-2xl"
+              className="drop-shadow-2xl max-md:w-9/10"
             />
           </CardContent>
         </div>

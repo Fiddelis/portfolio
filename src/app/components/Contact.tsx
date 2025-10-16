@@ -6,7 +6,7 @@ export default function Contact() {
   return (
     <motion.section
       id="contact"
-      className="flex flex-col font-bold h-100 justify-center"
+      className="flex flex-col font-bold h-full pb-10 justify-center"
       initial={{ opacity: 0, y: 40 }}
       whileInView={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.8, ease: "easeOut" }}

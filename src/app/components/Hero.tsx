@@ -53,7 +53,7 @@ export default function Hero() {
 
   return (
     <motion.section
-      className="flex flex-col justify-items-center align-middle text-center gap-20 min-h-screen justify-center "
+      className="flex flex-col justify-items-center align-middle text-center gap-20 min-h-full justify-center pt-30"
       initial={{ opacity: 0, y: 20 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.8, ease: "easeOut" }}
