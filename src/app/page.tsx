@@ -15,10 +15,11 @@ export default function Home() {
         <TargetCursor spinDuration={4} hideDefaultCursor={true} />
       </div>
       <Nav />
-      <Hero />
-      <Projects />
-      <Contact />
-
+      <div className="gap-30">
+        <Hero />
+        <Projects />
+        <Contact />
+      </div>
       <footer className="mb-4 text-center text-sm text-accent">
         <p>© {new Date().getFullYear()} Fiddelis. All rights reserved.</p>
       </footer>

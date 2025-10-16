@@ -1,6 +1,7 @@
 "use client";
 import { motion } from "framer-motion";
 import { useEffect, useState } from "react";
+import { AnimatedThemeToggler } from "@/components/ui/animated-theme-toggler";
 
 export default function Nav() {
   const [show, setShow] = useState(true);
@@ -51,6 +52,9 @@ export default function Nav() {
             <a href="#contact" className="cursor-none">
               Contact
             </a>
+          </li>
+          <li>
+            <AnimatedThemeToggler />
           </li>
         </ul>
       </div>

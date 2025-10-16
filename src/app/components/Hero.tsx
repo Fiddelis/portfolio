@@ -103,14 +103,14 @@ export default function Hero() {
           pauseOnHover
           scaleOnHover
           fadeOut
-          fadeOutColor="#ede9ee"
+          fadeOutColor="var(--background)"
           ariaLabel="Technology partners"
         />
       </div>
       <div className="hidden md:block">
         <a href="#projects" className="flex align-middle justify-center">
           <Button className="w-12 h-12 rounded-full self-center animate-bounce bg-accent cursor-none">
-            <FaArrowDown className="w-12 h-12" />
+            <FaArrowDown className="w-12 h-12 text-white" />
           </Button>
         </a>
       </div>

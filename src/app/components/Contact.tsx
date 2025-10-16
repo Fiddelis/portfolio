@@ -18,23 +18,26 @@ export default function Contact() {
       <Card className="flex gap-6 justify-center max-w-min p-2 self-center bg-secondary text-background transition-all duration-500 hover:bg-accent">
         <a
           href="https://www.linkedin.com/in/lucas-ruan-fidelis"
-          className="cursor-none cursor-target"
+          className="cursor-none cursor-target transition-all duration-500 hover:text-secondary"
         >
           <SiLinkedin className="cursor-none w-10 h-10 drop-shadow-lg/30" />
         </a>
 
-        <a href="https://github.com/Fiddelis" className="cursor-target">
+        <a
+          href="https://github.com/Fiddelis"
+          className="cursor-target transition-all duration-500 hover:text-secondary"
+        >
           <SiGithub className="cursor-none w-10 h-10 drop-shadow-lg/30" />
         </a>
         <a
           href="https://discord.com/users/210895480429871104"
-          className="cursor-target"
+          className="cursor-target transition-all duration-500 hover:text-secondary"
         >
           <SiDiscord className="cursor-none w-10 h-10 drop-shadow-lg/30" />
         </a>
         <a
           href="https://www.instagram.com/lucasruan.ff"
-          className="cursor-target"
+          className="cursor-target transition-all duration-500 hover:text-secondary"
         >
           <SiInstagram className="cursor-none w-10 h-10 drop-shadow-lg/30" />
         </a>

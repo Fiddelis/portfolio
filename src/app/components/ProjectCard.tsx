@@ -33,7 +33,7 @@ export default function ProjectCard({
       target="_blank"
       className="group cursor-none flex items-center gap-2"
     >
-      <Card className="h-full bg-background border-2 flex flex-col transition-all duration-500 hover:scale-105 hover:shadow-xl">
+      <Card className="h-full card border-secondary border-dashed border-2 flex flex-col transition-all duration-500 hover:scale-102 hover:shadow-xl hover:border-primary">
         {/* Header fixo no topo */}
         <CardHeader>
           <CardTitle className="text-primary">{title}</CardTitle>
