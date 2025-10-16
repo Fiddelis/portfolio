@@ -6,6 +6,7 @@ import Projects from "./components/Projects";
 import Contact from "./components/Contact";
 import { Timeline, TimelineItem } from "./components/Timeline";
 import { Separator } from "@radix-ui/react-separator";
+import Image from "next/image";
 
 const demoItems: TimelineItem[] = [
   {
@@ -85,8 +86,17 @@ export default function Home() {
         <Separator className="w-full h-0.5 bg-gradient-to-r from-background via-accent to-background" />
         <Contact />
       </div>
-      <footer className="mb-4 text-center text-sm text-primary">
-        <p>© {new Date().getFullYear()} Fiddelis. All rights reserved.</p>
+      <footer className="mb-4 text-center text-sm text-primary flex flex-col">
+        <Image
+          src="/cat.png"
+          alt="cat"
+          width={100}
+          height={100}
+          className="drop-shadow-2xl max-md:w-24 self-end"
+        />
+        <p className="align-text-bottom">
+          © {new Date().getFullYear()} Fiddelis. All rights reserved.
+        </p>
       </footer>
     </section>
   );
