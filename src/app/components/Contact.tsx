@@ -18,32 +18,32 @@ export default function Contact() {
       <Card className="flex gap-6 justify-center max-w-min p-2 self-center bg-secondary text-background transition-all duration-500 hover:bg-accent">
         <a
           href="https://www.linkedin.com/in/lucas-ruan-fidelis"
-          className="cursor-target"
+          className="cursor-none cursor-target"
         >
-          <SiLinkedin className="w-10 h-10 drop-shadow-lg/30" />
+          <SiLinkedin className="cursor-none w-10 h-10 drop-shadow-lg/30" />
         </a>
 
         <a href="https://github.com/Fiddelis" className="cursor-target">
-          <SiGithub className="w-10 h-10 drop-shadow-lg/30" />
+          <SiGithub className="cursor-none w-10 h-10 drop-shadow-lg/30" />
         </a>
         <a
           href="https://discord.com/users/210895480429871104"
           className="cursor-target"
         >
-          <SiDiscord className="w-10 h-10 drop-shadow-lg/30" />
+          <SiDiscord className="cursor-none w-10 h-10 drop-shadow-lg/30" />
         </a>
         <a
           href="https://www.instagram.com/lucasruan.ff"
           className="cursor-target"
         >
-          <SiInstagram className="w-10 h-10 drop-shadow-lg/30" />
+          <SiInstagram className="cursor-none w-10 h-10 drop-shadow-lg/30" />
         </a>
       </Card>
       <a
-        href="mailto:lucas.ruan@ges.inatel.br"
-        className="self-center mt-2 hover:underline"
+        href="mailto:contact@fiddelis.dev"
+        className="cursor-none self-center mt-2 hover:underline"
       >
-        lucas.ruan@ges.inatel.br
+        contact@fiddelis.dev
       </a>
     </motion.section>
   );
