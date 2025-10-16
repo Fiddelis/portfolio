@@ -8,7 +8,7 @@ export default function Projects() {
   return (
     <motion.section
       id="projects"
-      className="flex flex-col justify-items-center align-middle text-center min-h-screen justify-center"
+      className="flex flex-col justify-items-center align-middle text-center min-h-full justify-center"
       initial={{ opacity: 0, y: 40 }}
       whileInView={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.8, ease: "easeOut" }}
@@ -69,7 +69,6 @@ export default function Projects() {
           badges={["Python", "AI"]}
         />
       </div>
-      <Separator className="my-6 sm:my-8" />
     </motion.section>
   );
 }

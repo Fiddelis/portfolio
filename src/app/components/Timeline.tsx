@@ -197,12 +197,12 @@ export function Timeline({
 
   return (
     <motion.section
-      className="flex flex-col gap-12 sm:gap-20 min-h-screen"
+      className="flex flex-col gap-12 sm:gap-20 align-middle text-center min-h-screen justify-center"
       initial={{ opacity: 0, y: 20 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.8, ease: "easeOut" }}
     >
-      <h1 className="self-center text-3xl sm:text-4xl font-bold mb-6 sm:mb-20 text-center">
+      <h1 className="self-center text-4xl font-bold text-shadow-lg cursor-target text-center">
         <span className="text-primary">Career</span> Timeline
       </h1>
 
