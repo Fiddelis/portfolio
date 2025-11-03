@@ -1,8 +1,5 @@
 import { motion } from "framer-motion";
 import ProjectCard from "./ProjectCard";
-import { Button } from "@/components/ui/button";
-import { FaArrowDown } from "react-icons/fa";
-import { Separator } from "@radix-ui/react-separator";
 
 export default function Projects() {
   return (

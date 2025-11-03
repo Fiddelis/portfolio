@@ -5,7 +5,6 @@ import { motion } from "framer-motion";
 import { ExternalLink, MapPin, Briefcase, Calendar } from "lucide-react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
-import { Separator } from "@/components/ui/separator";
 
 export type TimelineItem = {
   company: string;
@@ -44,7 +43,7 @@ function groupByYear(items: TimelineItem[]) {
   for (const it of items) {
     const year =
       (typeof it.start === "string"
-        ? it.start.match(/\d{4}/)?.[0] ?? ""
+        ? (it.start.match(/\d{4}/)?.[0] ?? "")
         : new Date(it.start).getFullYear().toString()) || "";
     const arr = map.get(year) ?? [];
     arr.push(it);

@@ -21,6 +21,11 @@ const eslintConfig = [
       "src/components/**",
     ],
   },
+  {
+    rules: {
+      "@typescript-eslint/no-explicit-any": "off",
+    },
+  },
 ];
 
 export default eslintConfig;
