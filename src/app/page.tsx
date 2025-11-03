@@ -4,65 +4,51 @@ import Nav from "./components/Nav";
 import TargetCursor from "@/components/TargetCursor";
 import Projects from "./components/Projects";
 import Contact from "./components/Contact";
-import { Timeline, TimelineItem } from "./components/Timeline";
+import { Timeline } from "./components/Timeline";
 import { Separator } from "@radix-ui/react-separator";
 import Image from "next/image";
+import { useEffect, useState } from "react";
 
-const demoItems: TimelineItem[] = [
-  {
-    company: "Instituto Nacional de Telecomunicações (Inatel)",
-    role: "Teaching Assistant | Numerical Calculation & Statistics",
-    start: "Feb 2025",
-    end: "Present",
-    location: "Santa Rita do Sapucaí, MG, Brazil",
-    tech: ["Statistics", "Python", "Data Analysis"],
-    url: "https://inatel.br/",
-  },
-  {
-    company: "CS&I Lab – Instituto Nacional de Telecomunicações (Inatel)",
-    role: "Research Intern | Cybersecurity & AI",
-    start: "Sep 2024",
-    end: "Oct 2025",
-    location: "Santa Rita do Sapucaí, MG, Brazil",
-    tech: ["Cybersecurity", "SOC", "Machine Learning", "Python", "LLM"],
-    url: "https://inatel.br/",
-  },
-  {
-    company: "Instituto Nacional de Telecomunicações (Inatel)",
-    role: "Teaching Assistant | Microcontrollers & Microprocessors",
-    start: "Feb 2025",
-    end: "Jul 2025",
-    location: "Santa Rita do Sapucaí, MG, Brazil",
-    tech: ["C++", "Embedded Systems", "Communication"],
-    url: "https://inatel.br/",
-  },
-  {
-    company: "CIDC – Inatel & Huawei",
-    role: "Intern | Telecommunications",
-    start: "May 2024",
-    end: "Sep 2024",
-    location: "Santa Rita do Sapucaí, MG, Brazil",
-    tech: ["Telecommunications", "Microsoft Office", "Signal Analysis"],
-    url: "https://inatel.br/",
-  },
-  {
-    company: "SSIC – Inatel & Ericsson",
-    role: "Intern | Software Automation",
-    start: "Sep 2023",
-    end: "Apr 2024",
-    location: "Santa Rita do Sapucaí, MG, Brazil",
-    tech: [
-      "Java",
-      "Python",
-      "Documentation",
-      "Automation",
-      "Process Optimization",
-    ],
-    url: "https://inatel.br/",
-  },
-];
+import { client } from "../../sanity/lib/client";
+
+function formatMonthYear(input?: string | null) {
+  if (!input) return null;
+  const d = new Date(input);
+
+  if (typeof input === "string" && /^[A-Za-z]{3}\s\d{4}$/.test(input))
+    return input;
+  if (isNaN(d.getTime())) return input as any;
+  return new Intl.DateTimeFormat("en-US", {
+    month: "short",
+    year: "numeric",
+  }).format(d);
+}
+
+const QUERY = `*[_type=="works"]|order(start desc){
+  _id, company, role, start, end, location, tech, url
+}`;
 
 export default function Home() {
+  const [items, setItems] = useState<any[]>([]);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    client
+      .fetch(QUERY)
+      .then((data) => {
+        const normalized = Array.isArray(data)
+          ? data.map((it: any) => ({
+              ...it,
+              start: formatMonthYear(it.start),
+              end: it.end ? formatMonthYear(it.end) : "Present",
+            }))
+          : [];
+        setItems(normalized);
+      })
+      .catch((err) => console.error("Erro ao buscar dados do Sanity:", err))
+      .finally(() => setLoading(false));
+  }, []);
+
   return (
     <section
       id="home"
@@ -77,12 +63,17 @@ export default function Home() {
         <Separator className="w-full h-0.5 bg-gradient-to-r from-background via-accent to-background" />
         <Projects />
         <Separator className="w-full h-0.5 bg-gradient-to-r from-background via-accent to-background" />
-        <Timeline
-          items={demoItems}
-          density="compact"
-          accentClassName="bg-primary border-primary"
-          showYearHeaders
-        />
+        {loading ? (
+          <p className="text-center text-primary">Loading..</p>
+        ) : (
+          <Timeline
+            items={items}
+            density="compact"
+            accentClassName="bg-primary border-primary"
+            showYearHeaders
+          />
+        )}
+
         <Separator className="w-full h-0.5 bg-gradient-to-r from-background via-accent to-background" />
         <Contact />
       </div>
