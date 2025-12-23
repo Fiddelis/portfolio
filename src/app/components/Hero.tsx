@@ -25,7 +25,7 @@ type HeroProps = {
   };
 };
 
-export default function Hero({ copy, links }: HeroProps) {
+export default function Hero({ copy }: HeroProps) {
   const techLogos = [
     {
       node: <SiReact className="cursor-target" />,
