@@ -31,7 +31,7 @@ export default function ProjectCard({
     <a
       href={link}
       target="_blank"
-      className="group cursor-none flex items-center gap-2"
+      className="group flex items-center gap-2"
     >
       <Card className="h-full card border-secondary border-dashed border-2 flex flex-col transition-all duration-500 hover:scale-102 hover:shadow-xl hover:border-primary">
         {/* Header fixo no topo */}

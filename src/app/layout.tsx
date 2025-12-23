@@ -2,6 +2,8 @@ import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import { Analytics } from "@vercel/analytics/next";
 import "./globals.css";
+import { cookies, headers } from "next/headers";
+import { defaultLocale, isLocale } from "./i18n/config";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -21,13 +23,20 @@ export const metadata: Metadata = {
   },
 };
 
-export default function RootLayout({
+export default async function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  const cookieStore = await cookies();
+  const localeCookie = cookieStore.get("NEXT_LOCALE")?.value;
+  const localeHeader = (await headers()).get("x-locale") ?? undefined;
+  const locale = isLocale(localeHeader || localeCookie)
+    ? (localeHeader || localeCookie)
+    : defaultLocale;
+
   return (
-    <html lang="en">
+    <html lang={locale}>
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
@@ -35,7 +44,7 @@ export default function RootLayout({
           <div className="absolute inset-0 -z-10 pointer-events-none">
             <div className="h-full w-full bg-background"></div>
           </div>
-          <main className="relative pt-24 px-6">
+          <main className="relative">
             {children}
             <Analytics />
           </main>

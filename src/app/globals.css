@@ -51,97 +51,49 @@ html {
 :root {
   --radius: 0.625rem;
 
-  /* LIGHT THEME FIXO */
-  --background: #ede9ee; /* cor mais clara */
-  --foreground: #08000b; /* texto escuro */
+  /* LIGHT THEME - Higher contrast palette */
+  --background: #f7f2ec; /* warm off-white base */
+  --foreground: #262b2f; /* deep charcoal */
 
-  --card: #ede9ee;
-  --card-foreground: #08000b;
+  --card: #ffffff;
+  --card-foreground: #262b2f;
 
   --popover: #ffffff;
-  --popover-foreground: #08000b;
+  --popover-foreground: #262b2f;
 
-  --primary: #5e2971; /* roxo */
-  --primary-foreground: #ede9ee;
+  --primary: #6e80d4; /* deeper blue-lavender */
+  --primary-foreground: #ffffff;
 
-  --secondary: #956ea4; /* roxo claro */
-  --secondary-foreground: #08000b;
+  --secondary: #3f4b73; /* deep indigo */
+  --secondary-foreground: #ffffff;
 
-  --muted: #f3eff5;
-  --muted-foreground: #5e2971;
+  --accent: #e2855f; /* warm terracotta */
+  --accent-foreground: #ffffff;
 
-  --accent: #2e033e; /* roxo escuro */
-  --accent-foreground: #ede9ee;
+  --muted: #dbc29a; /* warm sand */
+  --muted-foreground: #2f3539;
 
-  --destructive: #d14b69;
-  --border: #cfc4d6;
-  --input: #cfc4d6;
-  --ring: #5e2971;
+  --destructive: #c84e4e;
+  --border: #d3c7bb;
+  --input: #d3c7bb;
+  --ring: #6e80d4;
 
-  /* Gráficos */
-  --chart-1: #5e2971;
-  --chart-2: #956ea4;
-  --chart-3: #2e033e;
-  --chart-4: #e0d8e7;
-  --chart-5: #08000b;
+  /* Charts */
+  --chart-1: #6e80d4;
+  --chart-2: #3f4b73;
+  --chart-3: #e2855f;
+  --chart-4: #dbc29a;
+  --chart-5: #262b2f;
 
   /* Sidebar */
-  --sidebar: #ede9ee;
-  --sidebar-foreground: #08000b;
-  --sidebar-primary: #5e2971;
-  --sidebar-primary-foreground: #ede9ee;
-  --sidebar-accent: #2e033e;
-  --sidebar-accent-foreground: #ede9ee;
-  --sidebar-border: #cfc4d6;
-  --sidebar-ring: #5e2971;
-}
-
-.dark {
-  /* DARK THEME FIXO */
-  --background: #0b0510; /* fundo profundo com leve roxo */
-  --foreground: #f4eef8; /* texto claro com leve tom lilás */
-
-  --card: #161021;
-  --card-foreground: #f4eef8;
-
-  --popover: #1c132b;
-  --popover-foreground: #f4eef8;
-
-  /* ROXOS E DESTAQUES */
-  --primary: #b48aff; /* lilás vivo para botões e links */
-  --primary-foreground: #0b0510;
-
-  --secondary: #7e57c2; /* roxo médio */
-  --secondary-foreground: #f4eef8;
-
-  --accent: #3b1b54; /* tom profundo, contraste elegante */
-  --accent-foreground: #eaddff;
-
-  /* SUPORTES E ESTADOS */
-  --muted: #22162e;
-  --muted-foreground: #bda9cc;
-
-  --destructive: #f26a8d; /* rosa avermelhado para erros */
-  --border: #332244;
-  --input: #332244;
-  --ring: #b48aff;
-
-  /* GRÁFICOS */
-  --chart-1: #b48aff;
-  --chart-2: #7e57c2;
-  --chart-3: #3b1b54;
-  --chart-4: #eaddff;
-  --chart-5: #f4eef8;
-
-  /* SIDEBAR */
-  --sidebar: #0f0717;
-  --sidebar-foreground: #e6daef;
-  --sidebar-primary: #b48aff;
-  --sidebar-primary-foreground: #0b0510;
-  --sidebar-accent: #7e57c2;
-  --sidebar-accent-foreground: #f4eef8;
-  --sidebar-border: #2b1a3b;
-  --sidebar-ring: #b48aff;
+  --sidebar: #f7f2ec;
+  --sidebar-foreground: #262b2f;
+  --sidebar-primary: #6e80d4;
+  --sidebar-primary-foreground: #ffffff;
+  --sidebar-accent: #e2855f;
+  --sidebar-accent-foreground: #ffffff;
+  --sidebar-border: #d3c7bb;
+  --sidebar-ring: #6e80d4;
 }
 
 @layer base {
@@ -150,6 +102,170 @@ html {
   }
   body {
     @apply bg-background text-foreground;
+    font-size: 16px;
+    line-height: 1.6;
+    letter-spacing: 0.3px;
+  }
+
+  h1 {
+    font-size: clamp(2rem, 5vw, 3.5rem);
+    font-weight: 700;
+    line-height: 1.2;
+    letter-spacing: -0.5px;
+    margin-bottom: 1rem;
+  }
+
+  h2 {
+    font-size: clamp(1.5rem, 4vw, 2.5rem);
+    font-weight: 700;
+    line-height: 1.3;
+    letter-spacing: -0.3px;
+    margin-bottom: 0.75rem;
+  }
+
+  h3 {
+    font-size: clamp(1.25rem, 3vw, 1.75rem);
+    font-weight: 600;
+    line-height: 1.4;
+    margin-bottom: 0.5rem;
+  }
+
+  p {
+    font-size: 1rem;
+    line-height: 1.7;
+    color: var(--foreground);
+  }
+}
+
+@layer components {
+  /* Full-width section wrappers that keep content centered */
+  .section-bleed {
+    width: 100%;
+    display: block;
+  }
+
+  .section-inner {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 5rem 1.5rem;
+  }
+
+  /* Better spacing for section headings */
+  .section-heading {
+    font-size: clamp(1.75rem, 4vw, 2.5rem);
+    font-weight: 700;
+    line-height: 1.3;
+    margin-bottom: 2.5rem;
+    letter-spacing: -0.3px;
+  }
+
+  /* Distinct section variants with color separation using brown */
+  .section-variant-1 {
+    background: var(--background);
+  }
+
+  .section-variant-2 {
+    background: var(--accent);
+  }
+
+  .section-variant-3 {
+    background: var(--accent);
+  }
+
+  /* Simple card tweaks to reinforce visual hierarchy */
+  .freelancer-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 2rem;
+    align-items: stretch;
+  }
+
+  /* Enhanced focus states and transitions for better interactivity */
+  button,
+  a {
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  /* Styling for sections with accent background */
+  .section-variant-2,
+  .section-variant-3 {
+    color: var(--accent-foreground);
+  }
+
+  .section-variant-2 h2,
+  .section-variant-3 h2 {
+    color: var(--accent-foreground);
+  }
+
+  .section-variant-2 p,
+  .section-variant-3 p {
+    color: var(--accent-foreground);
+  }
+
+  .section-variant-2 .text-foreground,
+  .section-variant-3 .text-foreground {
+    color: var(--accent-foreground);
+  }
+
+  .ambient-blurs {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    overflow: hidden;
+  }
+
+  .ambient-blur {
+    position: absolute;
+    width: 520px;
+    height: 520px;
+    border-radius: 999px;
+    filter: blur(90px);
+    opacity: 0.35;
+    transform: translateZ(0);
+  }
+
+  .ambient-blur--primary {
+    top: -160px;
+    left: -160px;
+    background: radial-gradient(circle, var(--primary) 0%, transparent 70%);
+  }
+
+  .ambient-blur--accent {
+    top: 10%;
+    right: -180px;
+    background: radial-gradient(circle, var(--accent) 0%, transparent 70%);
+  }
+
+  .ambient-blur--secondary {
+    bottom: -180px;
+    left: 15%;
+    background: radial-gradient(circle, var(--secondary) 0%, transparent 70%);
+  }
+
+  @media (max-width: 768px) {
+    .section-inner {
+      padding: 3rem 1.25rem;
+    }
+
+    .ambient-blur {
+      width: 360px;
+      height: 360px;
+      filter: blur(70px);
+      opacity: 0.28;
+    }
+
+    .ambient-blur--primary {
+      top: -140px;
+      left: -140px;
+    }
+
+    .ambient-blur--accent {
+      right: -140px;
+    }
+
+    .ambient-blur--secondary {
+      bottom: -140px;
+    }
   }
 }
 
