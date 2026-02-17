@@ -3,8 +3,14 @@
 import * as React from "react";
 import { motion } from "framer-motion";
 import { ExternalLink, MapPin, Briefcase, Calendar } from "lucide-react";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import {
+  BoxCard,
+  BoxCardContent,
+  BoxCardHeader,
+  BoxCardTitle,
+} from "@/components/ui/box-card";
 import { Badge } from "@/components/ui/badge";
+import Image from "next/image";
 
 export type TimelineItem = {
   company: string;
@@ -153,9 +159,9 @@ function ItemCard({
     density === "compact" ? "px-4 pb-3 pt-0" : "px-6 pb-6 pt-0";
 
   return (
-    <Card className={density === "compact" ? "shadow-sm" : "shadow-md"}>
-      <CardHeader className={headerClass}>
-        <CardTitle className="flex flex-wrap items-center gap-x-2 gap-y-1 text-sm sm:text-[0.9rem]">
+    <BoxCard>
+      <BoxCardHeader className={headerClass}>
+        <BoxCardTitle className="flex flex-wrap items-center gap-x-2 gap-y-1 text-sm sm:text-[0.9rem]">
           <span className="inline-flex items-center gap-1">
             {/* maior no mobile */}
             <Briefcase className="h-5 w-5 sm:h-4 sm:w-4 max-md:hidden" />
@@ -173,22 +179,22 @@ function ItemCard({
               {visitSiteLabel}
             </a>
           )}
-        </CardTitle>
+        </BoxCardTitle>
         <HeaderRow
           item={item}
           density={density}
           presentLabel={presentLabel}
         />
-      </CardHeader>
-      <CardContent className={contentClass}>
+      </BoxCardHeader>
+      <BoxCardContent className={contentClass}>
         {item.description && (
           <p className="text-left mb-2 text-[0.9rem] sm:text-sm leading-relaxed">
             {item.description}
           </p>
         )}
         <TechBadges tech={item.tech} />
-      </CardContent>
-    </Card>
+      </BoxCardContent>
+    </BoxCard>
   );
 }
 

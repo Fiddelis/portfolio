@@ -2,14 +2,12 @@
 
 import { useEffect, useState } from "react";
 import { useParams } from "next/navigation";
-import Link from "next/link";
 import Hero from "@/app/components/Hero";
 import Nav from "@/app/components/Nav";
 import Projects from "@/app/components/Projects";
 import { Timeline } from "@/app/components/Timeline";
-import BackgroundBlurs from "@/app/components/BackgroundBlurs";
 import Footer from "@/app/components/Footer";
-import { Button } from "@/components/ui/button";
+import { BoxCard } from "@/components/ui/box-card";
 import { client } from "../../../sanity/lib/client";
 import { defaultLocale, isLocale } from "../i18n/config";
 import { getDictionary } from "../i18n/dictionaries";
@@ -40,7 +38,7 @@ export default function Home() {
   const locale = isLocale(localeParam) ? localeParam : defaultLocale;
   const copy = getDictionary(locale);
 
-  const contactHref = `/${locale}/contact`;
+  const contactHref = `/${locale}/#contact`;
   const projectsHref = `/${locale}#projects`;
 
   const [items, setItems] = useState<any[]>([]);
@@ -66,50 +64,38 @@ export default function Home() {
 
   return (
     <div id="home" className="relative isolate font-mono overflow-hidden">
-      <BackgroundBlurs className="-z-10" />
       <Nav labels={copy.nav} />
 
-      <div className="section-bleed">
-        <div className="section-inner">
-          <Hero
-            copy={copy.hero}
-            links={{ contact: contactHref, projects: projectsHref }}
+      <section className="mx-auto w-full max-w-[1200px] px-4 pt-20 sm:px-6 sm:pt-24 lg:px-8">
+        <Hero
+          copy={copy.hero}
+          links={{ contact: contactHref, projects: projectsHref }}
+        />
+      </section>
+
+      <section className="mx-auto w-full max-w-[1200px] px-4 py-16 sm:px-6 sm:py-20 lg:px-8">
+        <Projects copy={copy.projects} contactHref={contactHref} />
+      </section>
+
+      <section className="mx-auto w-full max-w-[1200px] px-4 py-16 sm:px-6 sm:py-20 lg:px-8">
+        {loading ? (
+          <p className="text-center text-muted-foreground">{copy.misc.loading}</p>
+        ) : (
+          <Timeline
+            items={items}
+            density="compact"
+            accentClassName="bg-primary border-primary"
+            showYearHeaders
+            labels={copy.timeline}
           />
-        </div>
-      </div>
+        )}
+      </section>
 
-      <div className="section-bleed">
-        <div className="section-inner">
-          <Projects copy={copy.projects} contactHref={contactHref} />
-        </div>
-      </div>
-
-      <div className="section-bleed">
-        <div className="section-inner">
-          {loading ? (
-            <p className="text-center text-muted-foreground">
-              {copy.misc.loading}
-            </p>
-          ) : (
-            <Timeline
-              items={items}
-              density="compact"
-              accentClassName="bg-primary border-primary"
-              showYearHeaders
-              labels={copy.timeline}
-            />
-          )}
-        </div>
-      </div>
-
-      <div className="section-bleed">
-        <div className="section-inner">
-          <section className="flex flex-col items-center gap-6 rounded-3xl border border-border/60 bg-card/70 px-5 py-8 text-center shadow-lg backdrop-blur sm:px-8 sm:py-12">
-            <Contact copy={copy.contact} />
-          </section>
-        </div>
-      </div>
-
+      <section className="mx-auto w-full max-w-[1200px] px-4 py-16 sm:px-6 sm:py-20 lg:px-8">
+        <BoxCard className="flex flex-col items-center gap-6 px-5 py-8 text-center sm:px-8 sm:py-12">
+          <Contact copy={copy.contact} />
+        </BoxCard>
+      </section>
       <Footer copy={copy.footer} />
     </div>
   );

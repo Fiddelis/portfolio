@@ -1,5 +1,6 @@
 import FreelancerCard from "./FreelancerCard";
 import type { Dictionary } from "@/app/i18n/dictionaries";
+import Image from "next/image";
 
 type ProjectsProps = {
   copy: Dictionary["projects"];
@@ -22,16 +23,18 @@ export default function Projects({ copy, contactHref }: ProjectsProps) {
         </p>
       </div>
 
-      <div className="freelancer-grid w-full">
-        {copy.cards.map((card) => (
-          <FreelancerCard
-            key={card.title}
-            title={card.title}
-            description={card.description}
-            ctaText={card.ctaText}
-            ctaHref={contactHref}
-          />
-        ))}
+      <div className="relative w-full">
+        <div className="freelancer-grid relative z-10 w-full">
+          {copy.cards.map((card) => (
+            <FreelancerCard
+              key={card.title}
+              title={card.title}
+              description={card.description}
+              ctaText={card.ctaText}
+              ctaHref={contactHref}
+            />
+          ))}
+        </div>
       </div>
     </section>
   );

@@ -1,21 +1,11 @@
 "use client";
-import DecryptedText from "@/components/DecryptedText";
-import LogoLoop from "@/components/LogoLoop";
-import {
-  SiReact,
-  SiNextdotjs,
-  SiTypescript,
-  SiPython,
-  SiSpring,
-  SiMysql,
-} from "react-icons/si";
-import { FaJava } from "react-icons/fa";
 import { motion } from "framer-motion";
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
 import { Badge } from "@/components/ui/badge";
-import { Card, CardContent } from "@/components/ui/card";
+import { BoxCard } from "@/components/ui/box-card";
 import type { Dictionary } from "@/app/i18n/dictionaries";
+import Image from "next/image";
 
 type HeroProps = {
   copy: Dictionary["hero"];
@@ -25,156 +15,119 @@ type HeroProps = {
   };
 };
 
-export default function Hero({ copy }: HeroProps) {
-  const techLogos = [
-    {
-      node: <SiReact className="cursor-target" />,
-      title: "React",
-      href: "https://react.dev",
-    },
-    {
-      node: <SiNextdotjs className="cursor-target" />,
-      title: "Next.js",
-      href: "https://nextjs.org",
-    },
-    {
-      node: <SiTypescript className="cursor-target" />,
-      title: "TypeScript",
-      href: "https://www.typescriptlang.org",
-    },
-    {
-      node: <SiPython className="cursor-target" />,
-      title: "Python",
-      href: "https://www.python.org/",
-    },
-    {
-      node: <SiSpring className="cursor-target" />,
-      title: "Spring",
-      href: "https://spring.io/",
-    },
-    {
-      node: <SiMysql className="cursor-target" />,
-      title: "MySQL",
-      href: "https://www.mysql.com/",
-    },
-    {
-      node: <FaJava className="cursor-target" />,
-      title: "Java",
-      href: "https://www.java.com/pt-BR/",
-    },
+const asciiName = [
+  "▐▓▓▓▓▓▓▓⌐ ▐▓▓▓▓▓▓▓─ ▐▓▓▓▓▓▄_   ▓▓▓▓▓▄,   p▓▓▓▓▓▓▌  ▐▓▓       ▐▓▓▓▓▓▓▓   ▄▄███▓▄",
+  '▐██"""""   ──██▌──  ▐██└╙╙██▌ ▐██Ñ╙╙██▌  ██▌""""└  ▐██        ──██▌──  ╟██"─└╙▀',
+  "▐██▄▄▄▄▄     ██▌    ▐██   ╟██ ▐██M  ▐██─ ███▄▄▄▄▄  ▐██          ██▌    ╙███▄▄▄_",
+  '▐██▀▀▀▀▀     ██▌    ▐██   ▐██ ▐██M  ▐██─ ███▀▀▀▀"  ▐██          ██▌      ╙╙▀▀██▌',
+  "▐██        __██▌__  ▐██__▄██▌ ▐██▄_▄███  ██▌,,,,,  ▐██,,,,,   __██▌__  ▄▓▄__,██▌",
+  '╘██       ▐███████─ ▐████▀▀"  "████▀▀"   ╝██████▌  ╘███████─ ╘███████  └▀▀███▀╙',
+] as const;
+
+export default function Hero({ copy, links }: HeroProps) {
+  const contentItems = [
+    { text: copy.cardTitle, kind: "title" as const },
+    ...copy.cardBullets.map((item) => ({ text: item, kind: "default" as const })),
+    ...copy.cardMeta.map((item) => ({
+      text: `${item.label}: ${item.value}`,
+      kind: "default" as const,
+    })),
   ];
+  const tickerItems = contentItems.flatMap((item) => [
+    item,
+    { text: copy.cardStatus, kind: "status" as const },
+  ]);
+  const loopItems = [...tickerItems, ...tickerItems];
 
   return (
     <motion.section
-      className="flex flex-col gap-8 pt-24 sm:gap-12 sm:pt-28"
+      className="min-h-screen"
       initial={{ opacity: 0, y: 20 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.8, ease: "easeOut" }}
     >
-      <div className="grid items-center gap-8 lg:grid-cols-[1.15fr_0.85fr] sm:gap-12">
-        <div className="space-y-5 text-left sm:space-y-6">
-          <Badge
-            variant="secondary"
-            className="w-fit uppercase tracking-[0.2em]"
-          >
-            {copy.badge}
-          </Badge>
-          <div>
-            <div className="text-sm uppercase tracking-[0.3em] text-muted-foreground">
-              {copy.intro}
-            </div>
-            <div className="mt-3 text-4xl font-bold text-foreground sm:text-6xl lg:text-7xl">
-              <span className="cursor-target text-primary">Fiddelis.</span>
-            </div>
-            <DecryptedText
-              parentClassName="mt-3 text-xl text-foreground font-semibold sm:text-2xl lg:text-3xl"
-              speed={60}
-              maxIterations={10}
-              text={copy.role}
-              sequential={true}
-              animateOn="view"
-              revealDirection="center"
+      <BoxCard>
+        <header className="relative isolate overflow-hidden">
+          <div className="pointer-events-none absolute right-0 bottom-0 top-28 w-[88%] sm:top-24 sm:w-[62%] lg:top-28 lg:w-[52%]">
+            <Image
+              src="/gandalf.png"
+              alt="Gandalf artwork in ASCII style"
+              fill
+              priority
+              className="gandalf-color-cycle object-contain object-right-bottom mix-blend-multiply"
             />
           </div>
-
-          <p className="max-w-xl text-sm leading-relaxed text-muted-foreground sm:text-base lg:text-lg">
-            <span className="cursor-target text-primary font-semibold md:whitespace-nowrap">
-              {copy.descriptionHighlight}
-            </span>{" "}
-            {copy.description}
-          </p>
-
-          <div className="flex flex-wrap gap-3">
-            <Button asChild className="cursor-target">
-              <Link href={`#contact`}>{copy.ctaPrimary}</Link>
-            </Button>
+          <div className="relative z-10 flex min-h-[68vh] items-center px-6 py-10 sm:px-10 sm:py-12 lg:px-12">
+            <div className="max-w-4xl space-y-5 text-left sm:space-y-6">
+              <Badge
+                variant="secondary"
+                className="w-fit uppercase tracking-[0.2em]"
+              >
+                {copy.badge}
+              </Badge>
+              <div className="text-xs uppercase tracking-[0.32em] text-muted-foreground">
+                {copy.intro}
+              </div>
+              <div className="gandalf-color-cycle overflow-x-auto pb-2">
+                {asciiName.map((line) => (
+                  <pre
+                    key={line}
+                    className="w-max text-[0.29rem] leading-[1.1] text-primary sm:text-[0.52rem]"
+                  >
+                    {line}
+                  </pre>
+                ))}
+              </div>
+              <div className="text-base font-semibold uppercase tracking-[0.22em] text-foreground sm:text-xl">
+                {copy.role}
+              </div>
+              <p className="max-w-2xl text-sm leading-relaxed text-foreground/90 sm:text-base lg:text-lg bg-background border p-5">
+                <span className="cursor-target font-semibold text-primary md:whitespace-nowrap">
+                  {copy.descriptionHighlight}
+                </span>{" "}
+                {copy.description}
+              </p>
+              <div className="flex flex-wrap gap-3">
+                <Button asChild className="cursor-target">
+                  <Link href={links.contact}>{copy.ctaPrimary}</Link>
+                </Button>
+                <Button asChild variant="outline" className="cursor-target">
+                  <Link href={links.projects}>{copy.ctaSecondary}</Link>
+                </Button>
+              </div>
+            </div>
           </div>
-        </div>
 
-        <Card className="border border-border/60 bg-card/70 shadow-lg backdrop-blur">
-          <CardContent className="space-y-5 p-5 sm:space-y-6 sm:p-6">
-            <div className="flex items-center justify-between text-xs uppercase tracking-[0.3em] text-muted-foreground">
-              <span>{copy.cardTitle}</span>
-              <span className="text-primary font-semibold">
-                {copy.cardStatus}
-              </span>
-            </div>
-            <ul className="space-y-3 text-sm text-muted-foreground">
-              {copy.cardBullets.map((item, index) => {
-                const dotClass =
-                  index === 0
-                    ? "bg-primary"
-                    : index === 1
-                      ? "bg-accent"
-                      : "bg-secondary";
-                return (
-                  <li key={item} className="flex items-start gap-3">
-                    <span className={`mt-2 h-2 w-2 rounded-full ${dotClass}`} />
-                    {item}
-                  </li>
-                );
-              })}
-            </ul>
-            <div className="grid gap-3 sm:grid-cols-2">
-              {copy.cardMeta.map((item) => (
-                <div
-                  key={item.label}
-                  className="rounded-lg border border-border/60 bg-background/60 p-3"
-                >
-                  <div className="text-xs uppercase tracking-[0.2em] text-muted-foreground">
-                    {item.label}
-                  </div>
-                  <div className="text-sm font-semibold text-foreground">
-                    {item.value}
-                  </div>
-                </div>
-              ))}
-            </div>
-          </CardContent>
-        </Card>
-      </div>
+          <div className="relative z-10 border-t border-border/60 bg-background/70 py-3 sm:py-4">
+            <div className="overflow-hidden">
+              <motion.div
+                className="flex w-max items-center gap-3 whitespace-nowrap px-6 sm:gap-4 sm:px-10 lg:px-12"
+                animate={{ x: ["0%", "-50%"] }}
+                transition={{ duration: 28, ease: "linear", repeat: Infinity }}
+              >
+                {loopItems.map((item, index) => {
+                  const textClass =
+                    item.kind === "status"
+                      ? "font-bold text-destructive animate-pulse"
+                      : item.kind === "title"
+                        ? "font-bold text-foreground"
+                        : "text-foreground/85";
 
-      <div
-        className="relative overflow-hidden backdrop-blur"
-        style={{
-          maskImage:
-            "linear-gradient(to right, transparent 0%, black 10%, black 90%, transparent 100%)",
-          WebkitMaskImage:
-            "linear-gradient(to right, transparent 0%, black 10%, black 90%, transparent 100%)",
-        }}
-      >
-        <LogoLoop
-          logos={techLogos}
-          className="text-foreground"
-          speed={120}
-          direction="left"
-          logoHeight={48}
-          gap={40}
-          pauseOnHover
-          scaleOnHover
-          ariaLabel={copy.logosAria}
-        />
-      </div>
+                  return (
+                    <span
+                      key={`${item.text}-${index}`}
+                      className="inline-flex items-center gap-3 text-xs uppercase tracking-[0.22em] sm:text-sm"
+                    >
+                      <span className={textClass}>{item.text}</span>
+                      <span className={`h-1.5 w-1.5 rounded-full text-destructive flex justify-center items-center`}>!</span>
+                    </span>
+                  );
+                })}
+              </motion.div>
+            </div>
+          </div>
+        </header>
+      </BoxCard>
     </motion.section>
   );
 }

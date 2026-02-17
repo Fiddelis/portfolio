@@ -1,18 +1,14 @@
 import type { Metadata } from "next";
-import { Geist, Geist_Mono } from "next/font/google";
+import localFont from "next/font/local";
 import { Analytics } from "@vercel/analytics/next";
 import "./globals.css";
 import { cookies, headers } from "next/headers";
 import { defaultLocale, isLocale } from "./i18n/config";
 
-const geistSans = Geist({
-  variable: "--font-geist-sans",
-  subsets: ["latin"],
-});
-
-const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
-  subsets: ["latin"],
+const dosVga = localFont({
+  src: "../../public/Perfect DOS VGA 437.ttf",
+  variable: "--font-dos-vga",
+  display: "swap",
 });
 
 export const metadata: Metadata = {
@@ -37,12 +33,10 @@ export default async function RootLayout({
 
   return (
     <html lang={locale}>
-      <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
-      >
+      <body className={dosVga.variable}>
         <div className="relative min-h-screen isolate">
           <div className="absolute inset-0 -z-10 pointer-events-none">
-            <div className="h-full w-full bg-background"></div>
+            <div className="h-full w-full site-diagonal-bg"></div>
           </div>
           <main className="relative">
             {children}

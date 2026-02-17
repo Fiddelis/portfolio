@@ -4,7 +4,6 @@ export type Dictionary = {
   nav: {
     home: string;
     projects: string;
-    about: string;
     contact: string;
   };
   hero: {
@@ -50,16 +49,6 @@ export type Dictionary = {
     socialTitle: string;
     socialSubtitle: string;
   };
-  about: {
-    badge: string;
-    title: string;
-    description: string;
-    focusLabel: string;
-    focusValue: string;
-    locationLabel: string;
-    locationValue: string;
-    imageAlt: string;
-  };
   footer: {
     rights: string;
   };
@@ -73,7 +62,6 @@ const dictionaries: Record<Locale, Dictionary> = {
     nav: {
       home: "Home",
       projects: "Projects",
-      about: "About",
       contact: "Contact",
     },
     hero: {
@@ -82,45 +70,42 @@ const dictionaries: Record<Locale, Dictionary> = {
       role: "Software Engineer",
       descriptionHighlight: "Software Engineer",
       description:
-        "focused on building modern frontend experiences, scalable software systems, and AI-powered applications such as chatbots and intelligent tools.",
+        "I build software on demand: web apps, internal tools, APIs, and AI automations tailored to each business.",
       ctaPrimary: "Let's talk",
       ctaSecondary: "View projects",
       cardTitle: "Freelance focus",
       cardStatus: "Open now",
       cardBullets: [
-        "High-end frontend interfaces with React & modern stacks.",
-        "Custom software solutions and dashboards.",
-        "AI integrations, chatbots, and automation tools.",
+        "Web apps built for your process",
+        "Internal tools that save team time",
+        "APIs and AI automations on demand",
       ],
-      cardMeta: [
-        { label: "Work model", value: "Project-based" },
-        { label: "Response", value: "24-48h" },
-      ],
+      cardMeta: [],
       logosAria: "Technology partners",
     },
     projects: {
       titlePrefix: "Available for",
       titleAccent: "Freelance Work",
       subtitle:
-        "Focused on clean interfaces, secure systems, and measurable outcomes.",
+        "Custom software on demand, built around your workflow and goals.",
       cards: [
         {
           title: "Frontend & UI Engineering",
           description:
-            "Design and development of modern, high-performance frontend applications with clean UX, accessibility, and responsive layouts.",
-          ctaText: "Available — Let's build",
+            "UI development for products and dashboards with clear UX, fast performance, and reliable delivery.",
+          ctaText: "Available - Build your interface",
         },
         {
           title: "Software Development",
           description:
-            "End-to-end software development, from architecture to implementation, focused on scalability, maintainability, and real-world use cases.",
-          ctaText: "Available — Discuss your idea",
+            "Custom software from planning to launch: backend, integrations, and architecture for real operations.",
+          ctaText: "Available - Plan your project",
         },
         {
           title: "AI & Chatbot Solutions",
           description:
-            "Integration of AI models, chatbots, and intelligent workflows to automate processes, enhance products, and improve user interaction.",
-          ctaText: "Available — Explore AI solutions",
+            "AI features, chatbots, and automations integrated into your product or internal workflows.",
+          ctaText: "Available - Add AI",
         },
       ],
     },
@@ -145,17 +130,6 @@ const dictionaries: Record<Locale, Dictionary> = {
       socialTitle: "Social",
       socialSubtitle: "Links",
     },
-    about: {
-      badge: "About",
-      title: "Building scalable software and intelligent systems.",
-      description:
-        "I am Lucas Fiddelis, a software engineering student and freelance developer focused on building scalable software systems, backend-driven applications, and AI-powered solutions such as chatbots, automation, and intelligent platforms.",
-      focusLabel: "Focus",
-      focusValue: "Frontend, Software Engineering & AI",
-      locationLabel: "Location",
-      locationValue: "Brazil, remote ready",
-      imageAlt: "Portrait of Lucas Fiddelis",
-    },
     footer: {
       rights: "All rights reserved.",
     },
@@ -165,56 +139,52 @@ const dictionaries: Record<Locale, Dictionary> = {
   },
   pt: {
     nav: {
-      home: "Início",
+      home: "Inicio",
       projects: "Projetos",
-      about: "Sobre",
       contact: "Contato",
     },
     hero: {
-      badge: "Disponível para freela",
+      badge: "Disponivel para freela",
       intro: "Oi, eu sou",
       role: "Engenharia de Software",
       descriptionHighlight: "Engenheiro de Software",
       description:
-        "focado em criar experiências modernas de frontend, sistemas de software escaláveis e aplicações com IA, como chatbots e ferramentas inteligentes.",
+        "eu desenvolvo software sob demanda: apps web, ferramentas internas, APIs e automacoes com IA para cada negocio.",
       ctaPrimary: "Vamos conversar",
       ctaSecondary: "Ver projetos",
       cardTitle: "Foco em freela",
-      cardStatus: "Disponível",
+      cardStatus: "Disponivel",
       cardBullets: [
-        "Interfaces frontend modernas com React e stacks atuais.",
-        "Soluções de software e dashboards sob medida.",
-        "Integrações com IA, chatbots e automações.",
+        "Apps web feitas para seu processo",
+        "Ferramentas internas que economizam tempo",
+        "APIs e automacoes com IA sob demanda",
       ],
-      cardMeta: [
-        { label: "Modelo de trabalho", value: "Por projeto" },
-        { label: "Resposta", value: "24-48h" },
-      ],
+      cardMeta: [],
       logosAria: "Tecnologias",
     },
     projects: {
-      titlePrefix: "Disponível para",
+      titlePrefix: "Disponivel para",
       titleAccent: "Freelance",
       subtitle:
-        "Foco em interfaces limpas, sistemas seguros e resultados mensuráveis.",
+        "Software sob demanda, construindo em cima do seu fluxo e metas do negocio.",
       cards: [
         {
           title: "Frontend & Interfaces",
           description:
-            "Design e desenvolvimento de aplicações frontend modernas, com foco em UX, performance e responsividade.",
-          ctaText: "Disponível — Vamos construir",
+            "Desenvolvimento de interfaces para produtos e dashboards com UX clara, performance e entrega consistente.",
+          ctaText: "Disponivel - Construir interface",
         },
         {
           title: "Desenvolvimento de Software",
           description:
-            "Desenvolvimento completo de software, da arquitetura à entrega, com foco em escalabilidade e código sustentável.",
-          ctaText: "Disponível — Conversar sobre a ideia",
+            "Software sob demanda do planejamento ao deploy: backend, integracoes e arquitetura para operacao real.",
+          ctaText: "Disponivel - Planejar projeto",
         },
         {
-          title: "Soluções em IA & Chatbots",
+          title: "Solucoes em IA & Chatbots",
           description:
-            "Criação e integração de chatbots, modelos de IA e fluxos inteligentes para automatizar processos e melhorar produtos digitais.",
-          ctaText: "Disponível — Explorar soluções em IA",
+            "Recursos de IA, chatbots e automacoes integrados ao seu produto ou fluxo interno.",
+          ctaText: "Disponivel - Adicionar IA",
         },
       ],
     },
@@ -227,28 +197,17 @@ const dictionaries: Record<Locale, Dictionary> = {
     cta: {
       title: "Pronto para construir algo real?",
       description:
-        "Vamos transformar sua próxima ideia em um produto seguro e escalável com clareza e ritmo.",
-      button: "Começar um projeto",
+        "Vamos transformar sua proxima ideia em um produto seguro e escalavel com clareza e ritmo.",
+      button: "Comecar um projeto",
     },
     contact: {
       badge: "Contato",
       title: "Vamos conversar",
       description:
-        "Compartilhe suas ideias, prazos e escopo. Respondo rápido e mantenho a comunicação clara.",
+        "Compartilhe suas ideias, prazos e escopo. Respondo rapido e mantenho a comunicacao clara.",
       responseTag: "Resposta em 24-48h",
       socialTitle: "Redes",
       socialSubtitle: "Links",
-    },
-    about: {
-      badge: "Sobre",
-      title: "Construindo software escalável e sistemas inteligentes.",
-      description:
-        "Sou Lucas Fiddelis, estudante de engenharia de software e desenvolvedor freelancer focado na construção de sistemas de software escaláveis, aplicações backend e soluções com IA, como chatbots, automações e plataformas inteligentes.",
-      focusLabel: "Foco",
-      focusValue: "Frontend, Engenharia de Software & IA",
-      locationLabel: "Localização",
-      locationValue: "Brasil, remoto",
-      imageAlt: "Retrato de Lucas Fiddelis",
     },
     footer: {
       rights: "Todos os direitos reservados.",

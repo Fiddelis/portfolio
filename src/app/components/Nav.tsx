@@ -62,7 +62,7 @@ export default function Nav({ labels }: NavProps) {
       }}
       transition={{ duration: 0.4, ease: "easeOut" }}
     >
-      <div className="mx-auto w-full max-w-7xl px-4 py-3 sm:px-6 sm:py-4">
+      <div className="mx-auto w-full max-w-7xl px-4 py-2 sm:px-6 sm:py-2.5">
         <div className="flex items-center justify-between sm:hidden">
           <div
             className="flex flex-wrap items-center justify-center gap-1 rounded-full border border-border/60 bg-background/70 p-1 text-[0.65rem] tracking-[0.2em]"
@@ -88,7 +88,7 @@ export default function Nav({ labels }: NavProps) {
           </div>
           <button
             type="button"
-            className="relative flex h-10 w-10 items-center justify-center bg-background/70 text-foreground/80 transition-colors hover:text-primary"
+            className="relative flex h-8 w-8 items-center justify-center bg-background/70 text-foreground/80 transition-colors hover:text-primary"
             aria-label={menuOpen ? "Close menu" : "Open menu"}
             aria-expanded={menuOpen}
             aria-controls="primary-nav-links"
@@ -136,14 +136,6 @@ export default function Nav({ labels }: NavProps) {
               className="cursor-target hover:text-primary transition-colors"
             >
               {labels.contact}
-            </Link>
-          </li>
-          <li>
-            <Link
-              href={`${localePrefix}/about`}
-              className="cursor-target hover:text-primary transition-colors"
-            >
-              {labels.about}
             </Link>
           </li>
           <li>
@@ -199,13 +191,6 @@ export default function Nav({ labels }: NavProps) {
               onClick={() => setMenuOpen(false)}
             >
               {labels.contact}
-            </Link>
-            <Link
-              href={`${localePrefix}/about`}
-              className="cursor-target hover:text-primary transition-colors"
-              onClick={() => setMenuOpen(false)}
-            >
-              {labels.about}
             </Link>
           </div>
         </div>
