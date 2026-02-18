@@ -148,7 +148,7 @@ export default function Nav({ labels }: NavProps) {
           </li>
           <li>
             <div
-              className="flex items-center gap-1 rounded-full border border-border/60 bg-background/70 p-1 text-xs tracking-[0.2em]"
+              className="flex items-center gap-1 border border-border/60 bg-background/70 p-1 text-xs tracking-[0.2em]"
               aria-label="Language switcher"
             >
               {locales.map((locale) => {
@@ -157,7 +157,7 @@ export default function Nav({ labels }: NavProps) {
                   <Link
                     key={locale}
                     href={buildLocaleHref(locale)}
-                    className={`rounded-full px-3 py-1 transition-colors ${
+                    className={`px-3 py-1 transition-colors ${
                       isActive
                         ? "bg-primary text-primary-foreground"
                         : "text-muted-foreground hover:text-foreground"

@@ -76,7 +76,8 @@ const dictionaries: Record<Locale, Dictionary> = {
     },
     blog: {
       title: "Posts",
-      subtitle: "Articles and notes in Markdown rendered as HTML at build time.",
+      subtitle:
+        "Thoughts and practical notes on Machine Learning, AI, Backend, Agents, and continuous learning.",
       readMore: "Read post",
       backToPosts: "Back to posts",
       empty: "No posts published yet.",
@@ -94,9 +95,9 @@ const dictionaries: Record<Locale, Dictionary> = {
       cardTitle: "Freelance focus",
       cardStatus: "Open now",
       cardBullets: [
-        "Web apps built for your process",
-        "Internal tools that save team time",
-        "APIs and AI automations on demand",
+        "Custom web apps",
+        "Useful internal tools",
+        "APIs and AI automations",
       ],
       cardMeta: [],
       logosAria: "Technology partners",
@@ -164,7 +165,8 @@ const dictionaries: Record<Locale, Dictionary> = {
     },
     blog: {
       title: "Posts",
-      subtitle: "Artigos e anotações em Markdown renderizados em HTML no build.",
+      subtitle:
+        "Reflexoes e anotacoes praticas sobre Machine Learning, IA, Backend, Agents e estudos continuos.",
       readMore: "Ler post",
       backToPosts: "Voltar para posts",
       empty: "Nenhum post publicado ainda.",
@@ -182,9 +184,9 @@ const dictionaries: Record<Locale, Dictionary> = {
       cardTitle: "Foco em freela",
       cardStatus: "Disponivel",
       cardBullets: [
-        "Apps web feitas para seu processo",
-        "Ferramentas internas que economizam tempo",
-        "APIs e automacoes com IA sob demanda",
+        "Apps web sob medida",
+        "Ferramentas internas uteis",
+        "APIs e automacoes com IA",
       ],
       cardMeta: [],
       logosAria: "Tecnologias",
