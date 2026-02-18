@@ -132,18 +132,18 @@ export default function Nav({ labels }: NavProps) {
           </li>
           <li>
             <Link
-              href={`${localePrefix}/posts`}
-              className="cursor-target hover:text-primary transition-colors"
-            >
-              {labels.posts}
-            </Link>
-          </li>
-          <li>
-            <Link
               href={`${localePrefix}/#contact`}
               className="cursor-target hover:text-primary transition-colors"
             >
               {labels.contact}
+            </Link>
+          </li>
+          <li>
+            <Link
+              href={`${localePrefix}/posts`}
+              className="cursor-target hover:text-primary transition-colors text-destructive animate-pulse"
+            >
+              {labels.posts}
             </Link>
           </li>
           <li>
@@ -194,18 +194,18 @@ export default function Nav({ labels }: NavProps) {
               {labels.projects}
             </Link>
             <Link
-              href={`${localePrefix}/posts`}
-              className="cursor-target hover:text-primary transition-colors"
-              onClick={() => setMenuOpen(false)}
-            >
-              {labels.posts}
-            </Link>
-            <Link
               href={`${localePrefix}/#contact`}
               className="cursor-target hover:text-primary transition-colors"
               onClick={() => setMenuOpen(false)}
             >
               {labels.contact}
+            </Link>
+            <Link
+              href={`${localePrefix}/posts`}
+              className="cursor-target hover:text-primary transition-colors"
+              onClick={() => setMenuOpen(false)}
+            >
+              {labels.posts}
             </Link>
           </div>
         </div>
