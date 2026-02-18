@@ -72,12 +72,12 @@ function Dot({ accentClassName }: { accentClassName?: string }) {
     <div className="relative z-10">
       {/* maior no mobile, padrão no >=sm */}
       <div
-        className={`h-3 w-3 sm:h-2 sm:w-2 rounded-full border bg-background ${
+        className={`h-3 w-3 sm:h-2 sm:w-2 border bg-background ${
           accentClassName ?? "border-primary"
         }`}
       />
       <div
-        className={`absolute -inset-2 sm:-inset-1 rounded-full opacity-25 ${
+        className={`absolute -inset-2 sm:-inset-1 opacity-25 ${
           accentClassName ?? "bg-primary"
         }`}
       />
@@ -116,9 +116,9 @@ function HeaderRow({
     >
       <span className="inline-flex items-center gap-1 text-muted-foreground">
         <Calendar className="h-4 w-4 sm:h-3 sm:w-3" />
-        {start} — {end}
+        {start} - {end}
       </span>
-      <span className="hidden sm:block">•</span>
+      <span className="hidden sm:block">*</span>
       {item.location && (
         <span className="inline-flex items-center gap-1 text-muted-foreground">
           <MapPin className="h-4 w-4 sm:h-3 sm:w-3" />
