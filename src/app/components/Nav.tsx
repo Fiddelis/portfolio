@@ -65,7 +65,7 @@ export default function Nav({ labels }: NavProps) {
       <div className="mx-auto w-full max-w-7xl px-4 py-2 sm:px-6 sm:py-2.5">
         <div className="flex items-center justify-between sm:hidden">
           <div
-            className="flex flex-wrap items-center justify-center gap-1 rounded-full border border-border/60 bg-background/70 p-1 text-[0.65rem] tracking-[0.2em]"
+            className="flex flex-wrap items-center justify-center gap-1 border border-border/60 bg-background/70 p-1 text-[0.65rem] tracking-[0.2em]"
             aria-label="Language switcher"
           >
             {locales.map((locale) => {
@@ -74,7 +74,7 @@ export default function Nav({ labels }: NavProps) {
                 <Link
                   key={locale}
                   href={buildLocaleHref(locale)}
-                  className={`rounded-full px-3 py-1 transition-colors ${
+                  className={`px-3 py-1 transition-colors ${
                     isActive
                       ? "bg-primary text-primary-foreground"
                       : "text-muted-foreground hover:text-foreground"
