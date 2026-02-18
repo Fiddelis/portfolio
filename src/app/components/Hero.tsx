@@ -16,12 +16,12 @@ type HeroProps = {
 };
 
 const asciiName = [
-  "▐▓▓▓▓▓▓▓⌐ ▐▓▓▓▓▓▓▓─ ▐▓▓▓▓▓▄_   ▓▓▓▓▓▄,   p▓▓▓▓▓▓▌  ▐▓▓       ▐▓▓▓▓▓▓▓   ▄▄███▓▄",
-  '▐██"""""   ──██▌──  ▐██└╙╙██▌ ▐██Ñ╙╙██▌  ██▌""""└  ▐██        ──██▌──  ╟██"─└╙▀',
-  "▐██▄▄▄▄▄     ██▌    ▐██   ╟██ ▐██M  ▐██─ ███▄▄▄▄▄  ▐██          ██▌    ╙███▄▄▄_",
-  '▐██▀▀▀▀▀     ██▌    ▐██   ▐██ ▐██M  ▐██─ ███▀▀▀▀"  ▐██          ██▌      ╙╙▀▀██▌',
-  "▐██        __██▌__  ▐██__▄██▌ ▐██▄_▄███  ██▌,,,,,  ▐██,,,,,   __██▌__  ▄▓▄__,██▌",
-  '╘██       ▐███████─ ▐████▀▀"  "████▀▀"   ╝██████▌  ╘███████─ ╘███████  └▀▀███▀╙',
+    "▀███▀███L   ╟████▌  ╟█████▓▄  ╘██████▄   Å███▀███▌ ▀████L      '████▀   ▄██▀▀██▄",
+    " ███╓▄╚█L    │██L    │██L'███  ▐██▌╙╟██─  ███╓▄╨█▌  ╟██─         ███   '██▌▄ ╟██",
+    " █████─      │██L    │██L ███  ▐██▌ ╟██─  █████─    ╟██─         ███     '████▄",
+    " ███╙╙       │██L    │██L ███  ▐██▌ ╟██─  ███`╙ ▄,  ╟██─  ╓╖     ███    ▄▄, ╙╟██",
+    ",███,       ,│██▄,  ,│██▄▓██'  ▄██▌▓██╨  ,███,[██▌ ,╣██▄,███    ▄███,  J██▌,,╟██",
+    "▀▀▀▀▀       ╙▀▀▀▀'  ╙▀▀▀▀▀^   '▀▀▀▀▀▀    ╙▀▀▀▀▀▀▀^ ╙▀▀▀▀▀▀▀╙    ▀▀▀▀╙    ╙▀▀▀▀▀",
 ] as const;
 
 export default function Hero({ copy, links }: HeroProps) {
@@ -54,7 +54,7 @@ export default function Hero({ copy, links }: HeroProps) {
               alt="Gandalf artwork in ASCII style"
               fill
               priority
-              className="gandalf-color-cycle object-contain object-right-bottom mix-blend-multiply"
+              className="gandalf-color-cycle object-contain object-right-bottom mix-blend-multipl opacity-80"
             />
           </div>
           <div className="relative z-10 flex min-h-[68vh] items-center px-6 py-10 sm:px-10 sm:py-12 lg:px-12">
