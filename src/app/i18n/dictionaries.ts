@@ -4,7 +4,16 @@ export type Dictionary = {
   nav: {
     home: string;
     projects: string;
+    posts: string;
     contact: string;
+  };
+  blog: {
+    title: string;
+    subtitle: string;
+    readMore: string;
+    backToPosts: string;
+    empty: string;
+    publishedOn: string;
   };
   hero: {
     badge: string;
@@ -62,7 +71,16 @@ const dictionaries: Record<Locale, Dictionary> = {
     nav: {
       home: "Home",
       projects: "Projects",
+      posts: "Posts",
       contact: "Contact",
+    },
+    blog: {
+      title: "Posts",
+      subtitle: "Articles and notes in Markdown rendered as HTML at build time.",
+      readMore: "Read post",
+      backToPosts: "Back to posts",
+      empty: "No posts published yet.",
+      publishedOn: "Published on",
     },
     hero: {
       badge: "Available for freelance",
@@ -141,7 +159,16 @@ const dictionaries: Record<Locale, Dictionary> = {
     nav: {
       home: "Inicio",
       projects: "Projetos",
+      posts: "Posts",
       contact: "Contato",
+    },
+    blog: {
+      title: "Posts",
+      subtitle: "Artigos e anotações em Markdown renderizados em HTML no build.",
+      readMore: "Ler post",
+      backToPosts: "Voltar para posts",
+      empty: "Nenhum post publicado ainda.",
+      publishedOn: "Publicado em",
     },
     hero: {
       badge: "Disponivel para freela",
