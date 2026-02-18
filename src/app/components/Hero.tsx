@@ -68,11 +68,17 @@ export default function Hero({ copy, links }: HeroProps) {
               <div className="text-xs uppercase tracking-[0.32em] text-muted-foreground">
                 {copy.intro}
               </div>
-              <div className="gandalf-color-cycle overflow-x-auto pb-2">
+              <div
+                className="gandalf-color-cycle notranslate overflow-x-auto pb-2"
+                translate="no"
+                lang="zxx"
+                dir="ltr"
+              >
                 {asciiName.map((line) => (
                   <pre
                     key={line}
                     className="w-max text-[0.29rem] leading-[1.1] text-primary sm:text-[0.52rem]"
+                    translate="no"
                   >
                     {line}
                   </pre>
