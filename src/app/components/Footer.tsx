@@ -10,7 +10,7 @@ export default function Footer({ copy }: FooterProps) {
     <footer className="relative mt-12 pb-10">
       <div className="mx-auto flex max-w-7xl flex-col items-center gap-4 px-6 text-center text-sm text-muted-foreground">
         <p>
-          © {new Date().getFullYear()} Fiddelis. {copy.rights}
+          @ {new Date().getFullYear()} Fiddelis. {copy.rights}
         </p>
       </div>
     </footer>
