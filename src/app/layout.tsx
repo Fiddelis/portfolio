@@ -4,6 +4,7 @@ import { Analytics } from "@vercel/analytics/next";
 import "./globals.css";
 import { cookies, headers } from "next/headers";
 import { defaultLocale, isLocale } from "./i18n/config";
+import { SpeedInsights } from '@vercel/speed-insights/next';
 
 const dosVga = localFont({
   src: "../../public/Perfect DOS VGA 437.ttf",
@@ -41,6 +42,7 @@ export default async function RootLayout({
           <main className="relative">
             {children}
             <Analytics />
+            <SpeedInsights />
           </main>
         </div>
       </body>

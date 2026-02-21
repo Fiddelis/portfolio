@@ -3,7 +3,6 @@ import { SiDiscord, SiGithub, SiInstagram, SiLinkedin } from "react-icons/si";
 import { BoxCard, BoxCardContent } from "@/components/ui/box-card";
 import { Badge } from "@/components/ui/badge";
 import type { Dictionary } from "@/app/i18n/dictionaries";
-import Image from "next/image";
 type ContactProps = {
   copy: Dictionary["contact"];
 };

@@ -10,7 +10,6 @@ import {
   BoxCardTitle,
 } from "@/components/ui/box-card";
 import { Badge } from "@/components/ui/badge";
-import Image from "next/image";
 
 export type TimelineItem = {
   company: string;

@@ -1,5 +1,4 @@
 import type { Dictionary } from "@/app/i18n/dictionaries";
-import Image from "next/image";
 
 type FooterProps = {
   copy: Dictionary["footer"];
