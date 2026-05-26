@@ -295,6 +295,11 @@ html {
     line-height: 1.75;
   }
 
+  .posts-shell {
+    font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas,
+      "Liberation Mono", "Courier New", monospace;
+  }
+
   .post-content h1,
   .post-content h2,
   .post-content h3,
@@ -326,6 +331,12 @@ html {
     text-underline-offset: 3px;
   }
 
+  .post-content mark {
+    background: color-mix(in oklab, var(--accent) 38%, white 62%);
+    color: var(--foreground);
+    padding: 0.05rem 0.3rem;
+  }
+
   .post-content ul,
   .post-content ol {
     margin-left: 1.25rem;
@@ -347,11 +358,86 @@ html {
     padding-left: 1rem;
   }
 
+  .post-content img {
+    display: block;
+    max-width: 100%;
+    height: auto;
+    margin: 1.5rem auto;
+    padding: 0.75rem;
+    border: 1px solid var(--border);
+    background: #ffffff;
+  }
+
+  .post-content table {
+    display: table;
+    width: max-content;
+    min-width: 100%;
+    border-collapse: collapse;
+    border: 1px solid var(--border);
+    background: color-mix(in oklab, var(--card) 94%, var(--muted) 6%);
+  }
+
+  .post-content thead {
+    background: color-mix(in oklab, var(--card) 82%, var(--foreground) 18%);
+  }
+
+  .post-content tbody tr:nth-child(even) {
+    background: color-mix(in oklab, var(--card) 90%, var(--muted) 10%);
+  }
+
+  .post-content th,
+  .post-content td {
+    border: 1px solid var(--border);
+    padding: 0.75rem 0.9rem;
+    text-align: left;
+    vertical-align: top;
+    white-space: nowrap;
+  }
+
+  .post-content th {
+    font-weight: 700;
+  }
+
+  .post-content details {
+    border: 1px solid var(--border);
+    background: color-mix(in oklab, var(--card) 92%, var(--muted) 8%);
+    overflow: hidden;
+  }
+
+  .post-content summary {
+    cursor: pointer;
+    list-style: revert;
+    padding: 0.9rem 1rem;
+    font-weight: 700;
+    user-select: none;
+  }
+
+  .post-content details[open] summary {
+    border-bottom: 1px solid var(--border);
+  }
+
+  .post-content details > :not(summary) {
+    margin: 0;
+    padding: 1rem;
+  }
+
   .post-content pre {
     overflow-x: auto;
-    border: 1px solid var(--border);
-    background: color-mix(in oklab, var(--card) 85%, var(--foreground) 15%);
+    border: 0.5px solid #000;
+    background: #ffffff;
+    padding: 0;
+  }
+
+  .post-content pre code {
+    display: block;
+    min-width: max-content;
+    background: transparent;
+    color: #24292e;
     padding: 1rem;
+  }
+
+  .post-content pre code.hljs {
+    background: transparent;
   }
 
   .post-content code {

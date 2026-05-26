@@ -40,15 +40,15 @@ export default async function PostsPage({
   const posts = await getAllPosts(locale);
 
   return (
-    <div className="relative isolate font-mono overflow-hidden">
+    <div className="relative isolate overflow-hidden">
       <Nav labels={copy.nav} />
 
-      <section className="mx-auto w-full max-w-[900px] px-4 pt-24 pb-10 sm:px-6 sm:pt-28 lg:px-8">
+      <section className="posts-shell mx-auto w-full max-w-[900px] px-4 pt-24 pb-10 sm:px-6 sm:pt-28 lg:px-8">
         <h1 className="text-3xl sm:text-4xl font-bold text-primary">{copy.blog.title}</h1>
         <p className="text-muted-foreground mt-2">{copy.blog.subtitle}</p>
       </section>
 
-      <section className="mx-auto w-full max-w-[900px] px-4 pb-16 sm:px-6 sm:pb-20 lg:px-8">
+      <section className="posts-shell mx-auto w-full max-w-[900px] px-4 pb-16 sm:px-6 sm:pb-20 lg:px-8">
         {posts.length === 0 ? (
           <p className="text-muted-foreground">{copy.blog.empty}</p>
         ) : (

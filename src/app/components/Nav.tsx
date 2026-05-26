@@ -54,7 +54,7 @@ export default function Nav({ labels }: NavProps) {
 
   return (
     <motion.nav
-      className="fixed top-0 left-0 z-50 w-full border-b border-border/60 bg-gradient-to-b from-background/80 to-background/20 backdrop-blur-lg"
+      className="fixed top-0 left-0 z-50 w-full border-b border-border/60 bg-gradient-to-b from-background/80 to-background/20 font-sans backdrop-blur-lg"
       initial={{ opacity: 0, y: -40 }}
       animate={{
         opacity: show ? 1 : 0,

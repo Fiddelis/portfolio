@@ -51,10 +51,10 @@ export default async function PostPage({
   }
 
   return (
-    <div className="relative isolate font-mono overflow-hidden">
+    <div className="relative isolate overflow-hidden">
       <Nav labels={copy.nav} />
 
-      <article className="mx-auto w-full max-w-[900px] px-4 pt-24 pb-16 sm:px-6 sm:pt-28 sm:pb-20 lg:px-8">
+      <article className="posts-shell mx-auto w-full max-w-[900px] px-4 pt-24 pb-16 sm:px-6 sm:pt-28 sm:pb-20 lg:px-8">
         <Link
           href={`/${locale}/posts`}
           className="inline-block text-xs uppercase tracking-[0.16em] text-primary hover:underline"
