@@ -1,7 +1,7 @@
 ---
 title: "Rinha de Backend 2026: evitando IVF desnecessário com confiança heuristica"
 excerpt: "Neste artigo mostro a arquitetura hibrida que utilizei na minha solução da Rinha de Backend 2026 para reduzir drasticamente consultas IVF desnecessarias atraves de um sistema de confiança heuristica baseado em arvore binária."
-date: "2026-05-14"
+date: "2026-05-25"
 ---
 
 ## Sumário
@@ -163,16 +163,13 @@ Ao substituir o brute force por IVF, a latência caiu para <mark>147ms</mark>. I
 
 O ganho mais relevante apareceu quando a árvore binária entrou como etapa de triagem e o IVF passou a ser usado apenas nos casos ambíguos. Nesse ponto, o `P99` caiu para <mark>17ms</mark>. Essa diferença mostra exatamente o efeito da arquitetura híbrida: o sistema não ficou melhor apenas em fazer busca vetorial, ele passou a <mark>não fazer busca vetorial quando ela não era necessária</mark>.
 
-Por fim, depois das otimizações de memória, quantização e locality, o `P99` chegou em torno de <mark>5ms</mark>[^5]. Aqui o ganho deixou de ser sobre reduzir espaço de busca e passou a ser sobre tornar o caminho restante mais barato para a CPU e para a memória.
+Por fim, depois das otimizações de memória, quantização e locality, o `P99` chegou em torno de <mark>5ms</mark>[^5]. Na avaliação final publicada em <mark>23 de maio de 2026</mark>, a submissão registrou `5.36ms` de `P99`, com pontuação final de <mark>4708/6000</mark>, além de `23942` verdadeiros positivos, `30059` verdadeiros negativos, `58` falsos positivos, `0` falsos negativos e `0` erros HTTP[^5]. Aqui o ganho deixou de ser sobre reduzir espaço de busca e passou a ser sobre tornar o caminho restante mais barato para a CPU e para a memória.
 
-No final, a progressão da solução ficou bem clara:
+O ponto central é que a maior melhora não veio apenas de buscar mais rapido, mas sim de <mark>decidir melhor quando buscar</mark>. Em um ambiente limitado como o da rinha, isso vale mais do que qualquer micro-otimização isolada. **Na data de publicação deste artigo, em <mark>25 de maio de 2026</mark>, essa solução ocupa a <mark>primeira colocação entre as implementações em Python no ranking da rinha</mark>**. Os resultados da submissão também podem ser consultados na issue publicada junto da solução[^5].
 
-- `2000ms` -> KNN
-- `147ms` -> IVF
-- `17ms` -> árvore binária + IVF
-- `5ms` -> otimização de memória
-
-O ponto central é que a maior melhora não veio apenas de buscar mais rapido, mas sim de <mark>decidir melhor quando buscar</mark>. Em um ambiente limitado como o da rinha, isso vale mais do que qualquer micro-otimização isolada.
+<p align="center">
+  <img src="./imgs/rank_python.png" alt="rank" width="700" />
+</p>
 
 ---
 

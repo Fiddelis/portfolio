@@ -33,9 +33,12 @@ export async function GET(
 
   try {
     const file = await fs.readFile(resolvedPath);
-    return new NextResponse(file, {
+    const body = new Blob([Uint8Array.from(file)], {
+      type: getContentType(resolvedPath),
+    });
+    return new Response(body, {
       headers: {
-        "Content-Type": getContentType(resolvedPath),
+        "Content-Type": body.type,
         "Cache-Control": "public, max-age=31536000, immutable",
       },
     });
