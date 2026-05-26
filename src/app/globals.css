@@ -292,7 +292,13 @@ html {
   .post-content {
     display: grid;
     gap: 1rem;
+    min-width: 0;
     line-height: 1.75;
+  }
+
+  .post-content > * {
+    min-width: 0;
+    max-width: 100%;
   }
 
   .posts-shell {
@@ -323,6 +329,7 @@ html {
 
   .post-content p {
     color: var(--foreground);
+    overflow-wrap: anywhere;
   }
 
   .post-content a {
@@ -352,29 +359,38 @@ html {
     list-style: decimal;
   }
 
+  .post-content li {
+    overflow-wrap: anywhere;
+  }
+
   .post-content blockquote {
     border-left: 2px solid var(--border);
     color: var(--muted-foreground);
     padding-left: 1rem;
+    overflow-wrap: anywhere;
   }
 
   .post-content img {
     display: block;
     max-width: 100%;
+    width: auto;
     height: auto;
     margin: 1.5rem auto;
     padding: 0.75rem;
     border: 1px solid var(--border);
     background: #ffffff;
+    object-fit: contain;
   }
 
   .post-content table {
-    display: table;
-    width: max-content;
+    display: block;
+    width: 100%;
+    overflow-x: auto;
     min-width: 100%;
     border-collapse: collapse;
     border: 1px solid var(--border);
     background: color-mix(in oklab, var(--card) 94%, var(--muted) 6%);
+    -webkit-overflow-scrolling: touch;
   }
 
   .post-content thead {
@@ -423,9 +439,11 @@ html {
 
   .post-content pre {
     overflow-x: auto;
+    max-width: 100%;
     border: 0.5px solid #000;
     background: #ffffff;
     padding: 0;
+    -webkit-overflow-scrolling: touch;
   }
 
   .post-content pre code {
@@ -448,6 +466,7 @@ html {
     border: 1px solid var(--border);
     background: color-mix(in oklab, var(--card) 85%, var(--foreground) 15%);
     padding: 0.1rem 0.35rem;
+    overflow-wrap: anywhere;
   }
 
   @media (max-width: 768px) {
