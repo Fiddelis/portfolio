@@ -18,9 +18,9 @@ date: "2026-05-25"
 
 ## 1. O desafio da Rinha de Backend 2026
 
-A **rinha de backend**[^1] é uma competiçao no qual é proposto um problema para que seja solucionado em um sistema com limitações de memória, cpu e arquitetura.
+A **rinha de backend**[^1] é uma competição na qual é proposto um problema a ser solucionado em um sistema com limitações de memória, CPU e arquitetura.
 
-A rinha desse ano trouxe a ideia de detecção de fraudes de cartão de crédito utilizando busca vetorial no qual é passado 14 informações da compra que é necessário passar por um pipeline de vetorização/normalização, transformando esse json recebido em um vetor de 14 posições, abaixo consta o exemplo de um pipeline fornecido por eles[^2]:
+A rinha deste ano trouxe a proposta de detecção de fraudes em cartão de crédito utilizando busca vetorial. Para isso, recebemos 14 informações sobre cada compra, que precisam passar por um pipeline de vetorização e normalização, transformando o JSON recebido em um vetor de 14 posições. Abaixo está um exemplo de pipeline fornecido por eles[^2]:
 
 ```
 1. recebe a requisição:
@@ -54,27 +54,27 @@ A rinha desse ano trouxe a ideia de detecção de fraudes de cartão de crédito
     }
 ```
 
-O principal problema dessa rinha é que temos um total de <mark>3 milhões de dados</mark> fornecido por eles e **precisamos realizar a busca o mais rapido possivel** com a soma dos recursos utilizados sendo de no máximo <mark>1 CPU + 350mb de memória</mark>[^6].
+O principal problema dessa rinha é que temos um total de <mark>3 milhões de dados</mark> fornecidos por eles e **precisamos realizar a busca o mais rápido possível**, com a soma dos recursos utilizados limitada a, no máximo, <mark>1 CPU + 350 MB de memória</mark>[^6].
 
-**Mas e então, como funciona uma busca vetorial?**
+**Mas, então, como funciona uma busca vetorial?**
 
-A busca vetorial se trata em literalmente transformarmos dados brutos em vetores e compararmos com os vizinhos e verificarmos, no nosso caso, se eles são de maioria legitimos ou fraudes, por exemplo na rinha, recebemos 14 informações diferentes por compras, pegamos todas essas informações em formato _json_ e passamos por uma função que normaliza os dados em um range definido, normalmente entre 0 e 1, isso é necessário porque a distância é extremamente sensível à escala dos valores, sem normalização, uma feature numérica com valores muito maiores domina o cálculo da distância/similaridade, mesmo que ela não seja a mais relevante.
+A busca vetorial consiste, literalmente, em transformar dados brutos em vetores, compará-los com seus vizinhos e verificar, no nosso caso, se eles são majoritariamente legítimos ou fraudes. Na rinha, recebemos 14 informações diferentes por compra, pegamos todas essas informações em formato _JSON_ e as passamos por uma função que normaliza os dados em um intervalo definido, normalmente entre 0 e 1. Isso é necessário porque a distância é extremamente sensível à escala dos valores; sem normalização, uma feature numérica com valores muito maiores domina o cálculo da distância ou da similaridade, mesmo que ela não seja a mais relevante.
 
-Tendo esses dados normalizados, passamos agora para uma função que vetoriza esses dados para podermos comparar com os outros dados que ja temos.
+Com esses dados normalizados, passamos para uma função que os vetoriza, para podermos compará-los com os outros dados que já temos.
 
 <p align="center">
   <img src="./imgs/busca-vetorial.png" alt="Busca vetorial" width="520" />
 </p>
 
-**Porém ai que vem o problema**
+**Porém, aí vem o problema**
 
-A maneira mais simples de implementarmos uma busca vetorial é fazendo o calculo de distância entre o novo vetor e os vetores que ja temos calculados (3 milhões no total). O custo disso é enorme com a limitação que foram propostas, sendo inviavel implementarmos esse _brute force_.
+A maneira mais simples de implementar uma busca vetorial é calcular a distância entre o novo vetor e os vetores que já temos calculados, 3 milhões no total. O custo disso é enorme diante das limitações propostas, tornando inviável implementar esse _brute force_.
 
-Essa busca é denominada de Knn (K-nearest neighbor), um algoritmo extremamente custoso, tendo uma complexidade de `O(N)`, significando que o tempo de busca aumenta de forma linear. Por conta disso para solução desse problema é necessário utilizar um algoritmos que denominamos de Ann (approximate nearest neighbor) onde ao invés de compararmos um vetor com todos os outros que temos no banco, comparamos com um set menores de dados, aqui nesse ponto temos o nosso primeiro trade-off entre acurácia e performance.
+Essa busca é denominada KNN (_K-nearest neighbors_), um algoritmo extremamente custoso, com complexidade `O(N)`, o que significa que o tempo de busca aumenta de forma linear. Por isso, para resolver esse problema, é necessário utilizar um algoritmo que denominamos ANN (_approximate nearest neighbors_), no qual, em vez de compararmos um vetor com todos os outros que temos no banco, comparamos com um conjunto menor de dados. Aqui temos o nosso primeiro trade-off entre acurácia e performance.
 
-O Algoritmo de Ann que escolhi utilizar nessa rinha foi o **IVF (Inverted File Index)** que particiona o espaço em "células" e busca apenas nas mais próximas da consulta, essas celulas foram calculadas utilizando o modelo de ML Kmeans que foi treinado em um subset de 400.000 dados.
+O algoritmo de ANN que escolhi utilizar nessa rinha foi o **IVF (Inverted File Index)**, que particiona o espaço em "células" e busca apenas nas mais próximas da consulta. Essas células foram calculadas utilizando o modelo de ML K-Means, treinado em um subconjunto de 400.000 dados.
 
-Abaixo consta um exemplo de como funciona uma busca utilizando o IVF; como temos os dados separados por células, conseguimos calcular inicialmente somente a distância do novo vetor até o centro de todas as células, encontrado assim a célula de menor distância, descobrindo assim os dados que possivelmente estão mais pertos do nosso vetor, possibilitando assim calcular novamente a distância do vetor porém somente com os vetores dentro dessa célula, diminuindo a complexidade do algoritmo para aproximadamente <mark>O(k + m)</mark>, onde `k` é o número de centroides e `m` a quantidade de vetores analisados no cluster escolhido.
+Abaixo está um exemplo de como funciona uma busca com IVF. Como os dados estão separados por células, podemos calcular inicialmente apenas a distância entre o novo vetor e o centro de cada célula, encontrando a célula mais próxima. Com isso, identificamos os dados que possivelmente estão mais perto do nosso vetor e recalculamos a distância usando apenas os vetores contidos nessa célula, reduzindo a complexidade do algoritmo para aproximadamente <mark>O(k + m)</mark>, em que `k` é o número de centroides e `m` é a quantidade de vetores analisados no cluster escolhido.
 
 <p align="center">
   <img src="./imgs/ivf.png" alt="Busca vetorial" width="400" />
@@ -82,15 +82,15 @@ Abaixo consta um exemplo de como funciona uma busca utilizando o IVF; como temos
 
 ## 2. Por que mandar tudo para IVF ainda é caro
 
-Mesmo tendo reduzido as distâncias que precisamos calcular, ainda temos um total de 3M de dados que se divididos por exemplo em 1000 clusters ainda constaria 1000 (calculo comparativo com as centroides) + 3000 (dentro de cada cluster) de dados a serem analisados por consulta, sendo um total de 4000 vetores por consulta, isso certamente é muito melhor do que um _brute force_ em 3M de dados, porém com as limitações que temos de CPU/RAM ainda leva tempo e precisamos tentar economizar ainda mais.
+Mesmo tendo reduzido as distâncias que precisamos calcular, ainda temos um total de 3M de dados que, se divididos, por exemplo, em 1000 clusters, ainda resultariam em 1000 comparações com os centroides + 3000 comparações dentro do cluster, totalizando 4000 vetores analisados por consulta. Isso certamente é muito melhor do que um _brute force_ em 3M de dados, porém, com as limitações de CPU e RAM que temos, ainda leva tempo, e precisamos tentar economizar ainda mais.
 
-Por conta disso precisamos analisar os dados que temos antes de qualquer outra otimização ou troca de algoritmos; se analisarmos bem, conseguimos ver que muitos dos dados que constam no dataset são dados que obviamente são fraudes ou legitmos, um exemplo realista disso seria:
+Por conta disso, precisamos analisar os dados que temos antes de qualquer outra otimização ou troca de algoritmo. Se analisarmos bem, veremos que muitos dos dados presentes no dataset são, de forma bastante evidente, fraudes ou transações legítimas. Um exemplo realista disso seria:
 
 `Uma padaria recebe em uma das transações o valor de R$ 10,00, a probabilidade dessa compra ser uma fraude de cartão é extremamente baixa porque condiz com valores reais gastos nesses estabelecimentos, do mesmo modo, R$ 10.000,00 gasto em uma loja da Vivara também condiz com os valores gastos normalmente nesses estabelecimentos`
 
-porém
+Porém:
 
-`Qual a chance de uma transação de R$ 5.000,00 em uma padaria ser uma fraude? alta até demais.`
+`Qual é a chance de uma transação de R$ 5.000,00 em uma padaria ser uma fraude? Alta até demais.`
 
 Diante disso, surge a pergunta central: faz sentido executar uma busca vetorial custosa para toda requisição recebida? Se parte desses casos puder ser resolvida com um caminho mais leve, talvez seja mais eficiente reservar o IVF apenas para as transações ambíguas ou mais difíceis de classificar. Isso abre espaço para uma abordagem híbrida, em que um algoritmo barato faz a triagem inicial e encaminha somente os casos incertos para a etapa mais cara. Na minha solução, esse papel ficou com uma <mark>árvore binária</mark>.
 
