@@ -8,6 +8,6 @@ export const localeLabels: Record<Locale, string> = {
   pt: "PT",
 };
 
-export function isLocale(value?: string): value is Locale {
+export function isLocale(value?: string | null): value is Locale {
   return locales.includes(value as Locale);
 }

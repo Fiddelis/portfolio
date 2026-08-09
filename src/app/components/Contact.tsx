@@ -1,21 +1,24 @@
-import { motion } from "framer-motion";
+"use client";
+
+import { useRef } from "react";
 import { SiDiscord, SiGithub, SiInstagram, SiLinkedin } from "react-icons/si";
 import { BoxCard, BoxCardContent } from "@/components/ui/box-card";
 import { Badge } from "@/components/ui/badge";
 import type { Dictionary } from "@/app/i18n/dictionaries";
+import { useGsapReveal } from "@/app/hooks/useGsapReveal";
 type ContactProps = {
   copy: Dictionary["contact"];
 };
 
 export default function Contact({ copy }: ContactProps) {
+  const sectionRef = useRef<HTMLElement>(null);
+  useGsapReveal(sectionRef, { y: 28, duration: 0.65 });
+
   return (
-    <motion.section
+    <section
+      ref={sectionRef}
       id="contact"
-      className="grid items-center gap-8 lg:grid-cols-[1.1fr_0.9fr] sm:gap-10"
-      initial={{ opacity: 0, y: 40 }}
-      whileInView={{ opacity: 1, y: 0 }}
-      transition={{ duration: 0.8, ease: "easeOut" }}
-      viewport={{ once: true, amount: 0.2 }}
+      className="grid scroll-mt-24 items-center gap-8 lg:grid-cols-[1.1fr_0.9fr] sm:gap-10"
     >
       <div className="space-y-6 text-left">
         <Badge
@@ -35,43 +38,40 @@ export default function Contact({ copy }: ContactProps) {
           className="inline-flex flex-wrap items-center gap-2 text-base font-semibold text-primary transition-colors hover:text-secondary cursor-target sm:text-lg break-all"
         >
           contact@fiddelis.dev
-          <span className="text-xs uppercase tracking-[0.2em] text-muted-foreground">
-            {copy.responseTag}
-          </span>
         </a>
       </div>
 
-      <BoxCard>
+      <BoxCard className="contact-panel border-2 border-foreground bg-card">
         <BoxCardContent className="space-y-6 p-6 pt-6">
-          <div className="flex items-center justify-between text-xs uppercase tracking-[0.3em] text-muted-foreground">
+          <div className="flex items-center justify-between text-xs font-semibold uppercase tracking-[0.3em] text-foreground">
             <span>{copy.socialTitle}</span>
             <span>{copy.socialSubtitle}</span>
           </div>
           <div className="grid gap-3 sm:grid-cols-2">
             <a
               href="https://www.linkedin.com/in/lucas-ruan-fidelis"
-              className="flex items-center gap-3 border border-border/60 bg-background/60 p-3 text-sm font-semibold text-foreground transition-all hover:border-primary/60 hover:text-primary cursor-target"
+              className="flex items-center gap-3 border-2 border-foreground/60 bg-background p-3 text-sm font-semibold text-foreground transition-all hover:border-primary hover:text-primary focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 cursor-target"
             >
               <SiLinkedin className="h-5 w-5" />
               LinkedIn
             </a>
             <a
               href="https://github.com/Fiddelis"
-              className="flex items-center gap-3 border border-border/60 bg-background/60 p-3 text-sm font-semibold text-foreground transition-all hover:border-primary/60 hover:text-primary cursor-target"
+              className="flex items-center gap-3 border-2 border-foreground/60 bg-background p-3 text-sm font-semibold text-foreground transition-all hover:border-primary hover:text-primary focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 cursor-target"
             >
               <SiGithub className="h-5 w-5" />
               GitHub
             </a>
             <a
               href="https://discord.com/users/210895480429871104"
-              className="flex items-center gap-3 border border-border/60 bg-background/60 p-3 text-sm font-semibold text-foreground transition-all hover:border-primary/60 hover:text-primary cursor-target"
+              className="flex items-center gap-3 border-2 border-foreground/60 bg-background p-3 text-sm font-semibold text-foreground transition-all hover:border-primary hover:text-primary focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 cursor-target"
             >
               <SiDiscord className="h-5 w-5" />
               Discord
             </a>
             <a
               href="https://www.instagram.com/lucasruan.ff"
-              className="flex items-center gap-3 border border-border/60 bg-background/60 p-3 text-sm font-semibold text-foreground transition-all hover:border-primary/60 hover:text-primary cursor-target"
+              className="flex items-center gap-3 border-2 border-foreground/60 bg-background p-3 text-sm font-semibold text-foreground transition-all hover:border-primary hover:text-primary focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 cursor-target"
             >
               <SiInstagram className="h-5 w-5" />
               Instagram
@@ -79,6 +79,6 @@ export default function Contact({ copy }: ContactProps) {
           </div>
         </BoxCardContent>
       </BoxCard>
-    </motion.section>
+    </section>
   );
 }

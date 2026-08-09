@@ -1,16 +1,18 @@
 "use client";
-import { motion } from "framer-motion";
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
 import { Badge } from "@/components/ui/badge";
 import { BoxCard } from "@/components/ui/box-card";
 import type { Dictionary } from "@/app/i18n/dictionaries";
 import Image from "next/image";
+import { useLayoutEffect, useRef } from "react";
+import { gsap } from "gsap";
+import { useGsapReveal } from "@/app/hooks/useGsapReveal";
 
 type HeroProps = {
   copy: Dictionary["hero"];
   links: {
-    contact: string;
+    resume: string;
     projects: string;
   };
 };
@@ -25,50 +27,98 @@ const asciiName = [
 ] as const;
 
 export default function Hero({ copy, links }: HeroProps) {
+  const sectionRef = useRef<HTMLElement>(null);
+  const tickerTrackRef = useRef<HTMLDivElement>(null);
   const contentItems = [
-    { text: copy.cardTitle, kind: "title" as const },
     ...copy.cardBullets.map((item) => ({ text: item, kind: "default" as const })),
     ...copy.cardMeta.map((item) => ({
       text: `${item.label}: ${item.value}`,
       kind: "default" as const,
     })),
   ];
-  const tickerItems = contentItems.flatMap((item) => [
-    item,
-    { text: copy.cardStatus, kind: "status" as const },
-  ]);
-  const loopItems = [...tickerItems, ...tickerItems];
+  const loopItems = [...contentItems, ...contentItems];
+
+  useGsapReveal(sectionRef, { y: 20, duration: 0.8, start: "top 90%" });
+
+  useLayoutEffect(() => {
+    const section = sectionRef.current;
+    if (!section) return;
+
+    const context = gsap.context(() => {
+      const media = gsap.matchMedia();
+
+      media.add(
+        {
+          reduceMotion: "(prefers-reduced-motion: reduce)",
+          noPreference: "(prefers-reduced-motion: no-preference)",
+        },
+        (mediaContext) => {
+          if (mediaContext.conditions?.reduceMotion) {
+            gsap.set("[data-gandalf-cycle]", { "--gandalf-hue": "0deg" });
+            return;
+          }
+
+          if (tickerTrackRef.current) {
+            const ticker = tickerTrackRef.current;
+            const loopWidth = ticker.scrollWidth / 2;
+
+            if (loopWidth > 0) {
+              const wrapX = gsap.utils.wrap(-loopWidth, 0);
+
+              gsap.set(ticker, { x: 0 });
+              gsap.to(ticker, {
+                x: -loopWidth,
+                duration: Math.max(12, loopWidth / 80),
+                ease: "steps(120)",
+                repeat: -1,
+                overwrite: "auto",
+                modifiers: {
+                  x: (value) => `${wrapX(Number.parseFloat(value))}px`,
+                },
+              });
+            }
+          }
+
+          gsap.to("[data-gandalf-cycle]", {
+            "--gandalf-hue": "360deg",
+            duration: 6,
+            ease: "none",
+            repeat: -1,
+          });
+        }
+      );
+
+      return () => media.revert();
+    }, section);
+
+    return () => context.revert();
+  }, []);
 
   return (
-    <motion.section
-      className="min-h-screen"
-      initial={{ opacity: 0, y: 20 }}
-      animate={{ opacity: 1, y: 0 }}
-      transition={{ duration: 0.8, ease: "easeOut" }}
-    >
-      <BoxCard>
+    <section ref={sectionRef} className="w-full">
+      <BoxCard className="hero-card">
         <header className="relative isolate overflow-hidden">
-          <div className="pointer-events-none absolute right-0 bottom-0 top-28 w-[88%] sm:top-24 sm:w-[62%] lg:top-28 lg:w-[52%]">
+          <div className="pointer-events-none absolute inset-y-0 right-0 hidden w-[72%] sm:block lg:w-[58%]">
             <Image
               src="/gandalf.png"
-              alt="Gandalf artwork in ASCII style"
+              alt=""
               fill
               priority
-              className="gandalf-color-cycle object-contain object-right-bottom mix-blend-multipl opacity-80"
+              data-gandalf-cycle
+              className="gandalf-color-cycle object-contain object-right-bottom"
             />
           </div>
-          <div className="relative z-10 flex min-h-[68vh] items-center px-6 py-10 sm:px-10 sm:py-12 lg:px-12">
-            <div className="max-w-4xl space-y-5 text-left sm:space-y-6">
+          <div className="relative z-10 flex min-h-[500px] items-center px-5 py-8 sm:min-h-[540px] sm:px-10 sm:py-10 lg:min-h-[570px] lg:px-12">
+            <div className="hero-copy max-w-3xl space-y-5 text-left sm:space-y-6">
               <Badge
                 variant="secondary"
-                className="w-fit uppercase tracking-[0.2em]"
+                className="w-fit border border-secondary-foreground/35 uppercase tracking-[0.2em]"
               >
                 {copy.badge}
               </Badge>
-              <div className="text-xs uppercase tracking-[0.32em] text-muted-foreground">
-                {copy.intro}
-              </div>
+              <h1 className="sr-only">Lucas Ruan Fiddelis - {copy.role}</h1>
               <div
+                data-gandalf-cycle
                 className="gandalf-color-cycle notranslate overflow-x-auto pb-2"
                 translate="no"
                 lang="zxx"
@@ -77,7 +127,7 @@ export default function Hero({ copy, links }: HeroProps) {
                 {asciiName.map((line) => (
                   <pre
                     key={line}
-                    className="w-max text-[0.29rem] leading-[1.1] text-primary sm:text-[0.52rem]"
+                    className="w-max text-[0.32rem] leading-[1.1] text-primary sm:text-[0.55rem]"
                     translate="no"
                   >
                     {line}
@@ -87,15 +137,14 @@ export default function Hero({ copy, links }: HeroProps) {
               <div className="text-base font-semibold uppercase tracking-[0.22em] text-foreground sm:text-xl">
                 {copy.role}
               </div>
-              <p className="max-w-2xl text-sm leading-relaxed text-foreground/90 sm:text-base lg:text-lg bg-background border p-5">
-                <span className="cursor-target font-semibold text-primary md:whitespace-nowrap">
-                  {copy.descriptionHighlight}
-                </span>{" "}
+              <p className="hero-description max-w-2xl text-sm leading-relaxed text-foreground sm:text-base lg:text-lg">
                 {copy.description}
               </p>
               <div className="flex flex-wrap gap-3">
                 <Button asChild className="cursor-target">
-                  <Link href={links.contact}>{copy.ctaPrimary}</Link>
+                  <Link href={links.resume} target="_blank" rel="noreferrer">
+                    {copy.ctaPrimary}
+                  </Link>
                 </Button>
                 <Button asChild variant="outline" className="cursor-target">
                   <Link href={links.projects}>{copy.ctaSecondary}</Link>
@@ -104,20 +153,17 @@ export default function Hero({ copy, links }: HeroProps) {
             </div>
           </div>
 
-          <div className="relative z-10 border-t border-border/60 bg-background/70 py-3 sm:py-4">
-            <div className="overflow-hidden">
-              <motion.div
+          <div className="hero-ticker relative z-10 border-t-2 border-foreground py-3 sm:py-4">
+            <p className="sr-only">
+              {contentItems.map((item) => item.text).join(", ")}
+            </p>
+            <div className="overflow-hidden" aria-hidden="true">
+              <div
+                ref={tickerTrackRef}
                 className="flex w-max items-center gap-3 whitespace-nowrap px-6 sm:gap-4 sm:px-10 lg:px-12"
-                animate={{ x: ["0%", "-50%"] }}
-                transition={{ duration: 28, ease: "linear", repeat: Infinity }}
               >
                 {loopItems.map((item, index) => {
-                  const textClass =
-                    item.kind === "status"
-                      ? "font-bold text-destructive animate-pulse"
-                      : item.kind === "title"
-                        ? "font-bold text-foreground"
-                        : "text-foreground/85";
+                  const textClass = "text-secondary-foreground/90";
 
                   return (
                     <span
@@ -125,15 +171,17 @@ export default function Hero({ copy, links }: HeroProps) {
                       className="inline-flex items-center gap-3 text-xs uppercase tracking-[0.22em] sm:text-sm"
                     >
                       <span className={textClass}>{item.text}</span>
-                      <span className={`h-1.5 w-1.5 rounded-full text-destructive flex justify-center items-center`}>!</span>
+                      <span className="hero-ticker-divider" aria-hidden="true">
+                        {"//"}
+                      </span>
                     </span>
                   );
                 })}
-              </motion.div>
+              </div>
             </div>
           </div>
         </header>
       </BoxCard>
-    </motion.section>
+    </section>
   );
 }

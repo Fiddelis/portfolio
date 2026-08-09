@@ -1,76 +1,90 @@
-import { Badge } from "@/components/ui/badge";
-import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardFooter,
-  CardHeader,
-  CardTitle,
-} from "@/components/ui/card";
 import Image from "next/image";
 import { ArrowUpRight } from "lucide-react";
+import { BoxCard } from "@/components/ui/box-card";
 
 type ProjectCardProps = {
+  number: string;
   title: string;
   link: string;
-  description: React.ReactNode;
   imageSrc: string;
-  imageAlt: string;
-  badges: string[];
+  width: number;
+  height: number;
+  projectLabel: string;
+  liveLabel: string;
+  openLabel: string;
+  description: string;
+  tags: string[];
 };
 
 export default function ProjectCard({
+  number,
   title,
   link,
-  description,
   imageSrc,
-  imageAlt,
-  badges,
+  width,
+  height,
+  projectLabel,
+  liveLabel,
+  openLabel,
+  description,
+  tags,
 }: ProjectCardProps) {
   return (
     <a
       href={link}
       target="_blank"
-      className="group flex items-center gap-2"
+      rel="noreferrer"
+      className="project-link group block cursor-target focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-4 focus-visible:ring-offset-background"
+      aria-label={title}
+      data-project-card
     >
-      <Card className="h-full card border-secondary border-dashed border-2 flex flex-col transition-all duration-500 hover:scale-102 hover:shadow-xl hover:border-primary">
-        {/* Header fixo no topo */}
-        <CardHeader>
-          <CardTitle className="text-primary">{title}</CardTitle>
-          <CardDescription className="text-foreground text-justify">
-            {description}
-          </CardDescription>
-        </CardHeader>
-
-        {/* Wrapper flex-1 mantém o conteúdo colado acima do footer */}
-        <div className="flex-1 flex items-end justify-center">
-          <CardContent className="flex justify-center align-bottom">
-            <Image
-              src={imageSrc}
-              alt={imageAlt}
-              width={400}
-              height={400}
-              className="drop-shadow-2xl max-md:w-9/10"
-            />
-          </CardContent>
+      <BoxCard className="project-card border-2 border-foreground bg-card">
+        <div className="flex items-center justify-between border-b-2 border-dashed border-foreground/70 bg-muted/35 px-4 py-2 text-[0.65rem] font-semibold uppercase tracking-[0.24em] text-foreground sm:text-xs">
+          <span>
+            {projectLabel}_{number}
+          </span>
+          <span className="bg-primary px-2 py-0.5 text-primary-foreground">[{liveLabel}]</span>
         </div>
-
-        {/* Sempre no final */}
-        <CardFooter className="mt-auto">
-          <div className="flex justify-between w-full">
+        <Image
+          src={imageSrc}
+          alt={`${title} project banner`}
+          width={width}
+          height={height}
+          sizes="(min-width: 1024px) 560px, 100vw"
+          className="h-auto w-full border-b-2 border-foreground/70 transition-opacity duration-300 group-hover:opacity-95"
+        />
+        <div className="space-y-4 px-4 py-4 sm:px-5">
+          <div className="flex items-start justify-between gap-4">
             <div>
-              {badges.map((badge, i) => (
-                <Badge key={i} className="m-1">
-                  {badge}
-                </Badge>
+              <h3 className="m-0 text-base font-bold uppercase tracking-[0.14em] text-foreground sm:text-lg">
+                {title}
+              </h3>
+              <p className="mt-2 text-sm leading-relaxed text-muted-foreground">
+                {description}
+              </p>
+            </div>
+            <ArrowUpRight
+              className="h-5 w-5 shrink-0 text-primary transition-transform duration-200 group-hover:translate-x-1 group-hover:-translate-y-1"
+              aria-hidden="true"
+            />
+          </div>
+          <div className="flex flex-wrap items-center justify-between gap-3 border-t border-dashed border-foreground/50 pt-3">
+            <div className="flex flex-wrap gap-1.5">
+              {tags.map((tag) => (
+                <span
+                  key={tag}
+                  className="border border-foreground/60 bg-muted/35 px-2 py-1 text-[0.65rem] font-semibold uppercase tracking-[0.12em] text-foreground"
+                >
+                  {tag}
+                </span>
               ))}
             </div>
-            <div>
-              <ArrowUpRight className="w-6 h-6 transition-transform duration-200 group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
-            </div>
+            <span className="text-xs font-bold uppercase tracking-[0.15em] text-primary">
+              {openLabel} →
+            </span>
           </div>
-        </CardFooter>
-      </Card>
+        </div>
+      </BoxCard>
     </a>
   );
 }

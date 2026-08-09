@@ -17,33 +17,42 @@ export type Dictionary = {
   };
   hero: {
     badge: string;
-    intro: string;
     role: string;
-    descriptionHighlight: string;
     description: string;
     ctaPrimary: string;
     ctaSecondary: string;
-    cardTitle: string;
-    cardStatus: string;
     cardBullets: string[];
     cardMeta: Array<{ label: string; value: string }>;
     logosAria: string;
   };
   projects: {
+    archiveLabel: string;
     titlePrefix: string;
     titleAccent: string;
     subtitle: string;
-    cards: Array<{
-      title: string;
-      description: string;
-      ctaText: string;
-    }>;
+    projectLabel: string;
+    liveLabel: string;
+    consoleLabel: string;
+    consoleStatus: string;
+    openLabel: string;
+    details: {
+      kindle2anki: {
+        description: string;
+        tags: string[];
+      };
+      kognilo: {
+        description: string;
+        tags: string[];
+      };
+    };
   };
   timeline: {
+    archiveLabel: string;
     titleEmphasis: string;
     titleRest: string;
     visitSite: string;
     present: string;
+    roles: Record<string, string>;
   };
   cta: {
     title: string;
@@ -54,15 +63,11 @@ export type Dictionary = {
     badge: string;
     title: string;
     description: string;
-    responseTag: string;
     socialTitle: string;
     socialSubtitle: string;
   };
   footer: {
     rights: string;
-  };
-  misc: {
-    loading: string;
   };
 };
 
@@ -70,179 +75,177 @@ const dictionaries: Record<Locale, Dictionary> = {
   en: {
     nav: {
       home: "Home",
-      projects: "Projects",
-      posts: "Posts",
+      projects: "Work",
+      posts: "Notes",
       contact: "Contact",
     },
     blog: {
-      title: "Posts",
+      title: "Notes",
       subtitle:
-        "Thoughts and practical notes on Machine Learning, AI, Backend, Agents, and continuous learning.",
-      readMore: "Read post",
-      backToPosts: "Back to posts",
-      empty: "No posts published yet.",
-      publishedOn: "Published on",
+        "Things I'm learning while building with AI, backend systems, and everything around them.",
+      readMore: "Read note",
+      backToPosts: "Back to notes",
+      empty: "Nothing here yet.",
+      publishedOn: "Posted on",
     },
     hero: {
-      badge: "Available for freelance",
-      intro: "Hi, I am",
-      role: "Software Engineer",
-      descriptionHighlight: "Software Engineer",
+      badge: "Software / AI / Product",
+      role: "Software engineer",
       description:
-        "I build software on demand: web apps, internal tools, APIs, and AI automations tailored to each business.",
-      ctaPrimary: "Let's talk",
-      ctaSecondary: "View projects",
-      cardTitle: "Freelance focus",
-      cardStatus: "Open now",
+        "I turn complicated ideas into digital products, simple tools, and AI features people can use every day.",
+      ctaPrimary: "See my resume",
+      ctaSecondary: "See what I've built",
       cardBullets: [
-        "Custom web apps",
-        "Useful internal tools",
-        "APIs and AI automations",
+        "Web products & digital experiences",
+        "Systems that connect the pieces",
+        "AI tools that save time",
       ],
       cardMeta: [],
-      logosAria: "Technology partners",
+      logosAria: "Tools I use",
     },
     projects: {
-      titlePrefix: "Available for",
-      titleAccent: "Freelance Work",
+      archiveLabel: "A few things I've made",
+      titlePrefix: "Selected",
+      titleAccent: "work",
       subtitle:
-        "Custom software on demand, built around your workflow and goals.",
-      cards: [
-        {
-          title: "Frontend & UI Engineering",
+        "A couple of products I've built to make learning feel a little easier.",
+      projectLabel: "PROJECT",
+      liveLabel: "ONLINE",
+      consoleLabel: "PROJECTS.EXE / HANDPICKED",
+      consoleStatus: "2 systems online",
+      openLabel: "See project",
+      details: {
+        kindle2anki: {
           description:
-            "UI development for products and dashboards with clear UX, fast performance, and reliable delivery.",
-          ctaText: "Available - Build your interface",
+            "Moves Kindle highlights into Anki cards, so review starts with what you already marked.",
+          tags: ["Kindle", "Anki", "Learning"],
         },
-        {
-          title: "Software Development",
+        kognilo: {
           description:
-            "Custom software from planning to launch: backend, integrations, and architecture for real operations.",
-          ctaText: "Available - Plan your project",
+            "A calmer learning workspace for turning scattered study time into steady progress.",
+          tags: ["AI", "Learning", "Web app"],
         },
-        {
-          title: "AI & Chatbot Solutions",
-          description:
-            "AI features, chatbots, and automations integrated into your product or internal workflows.",
-          ctaText: "Available - Add AI",
-        },
-      ],
+      },
     },
     timeline: {
+      archiveLabel: "Where I've worked",
       titleEmphasis: "Career",
-      titleRest: "Timeline",
+      titleRest: "so far",
       visitSite: "Visit site",
       present: "Present",
+      roles: {
+        aiSoftwareIntern: "AI & Software Intern",
+        numericalStatsTeachingAssistant: "Statistics Teaching Assistant",
+        microcontrollersTeachingAssistant: "Microcontrollers Teaching Assistant",
+        cybersecurityAiResearchIntern: "Cybersecurity and AI Research Intern",
+        telecommunicationsIntern: "Telecommunications Intern",
+        softwareAutomationIntern: "Software Automation Intern",
+      },
     },
     cta: {
-      title: "Ready to build something real?",
+      title: "Have an idea?",
       description:
-        "Let's turn your next idea into a secure, scalable product with clarity and momentum.",
-      button: "Start a project",
+        "Tell me what you're working on. We can figure out the next step together.",
+      button: "Let's talk",
     },
     contact: {
-      badge: "Contact",
-      title: "Let's connect",
+      badge: "Get in touch",
+      title: "Say hello",
       description:
-        "Share your ideas, timelines, and scope. I respond quickly and keep communication clear.",
-      responseTag: "24-48h response",
-      socialTitle: "Social",
-      socialSubtitle: "Links",
+        "Have a project in mind or just want to compare notes? Send me a message.",
+      socialTitle: "Find me online",
+      socialSubtitle: "Elsewhere",
     },
     footer: {
       rights: "All rights reserved.",
-    },
-    misc: {
-      loading: "Loading...",
     },
   },
   pt: {
     nav: {
       home: "Inicio",
       projects: "Projetos",
-      posts: "Posts",
+      posts: "Notas",
       contact: "Contato",
     },
     blog: {
-      title: "Posts",
+      title: "Notas",
       subtitle:
-        "Reflexoes e anotacoes praticas sobre Machine Learning, IA, Backend, Agents e estudos continuos.",
-      readMore: "Ler post",
-      backToPosts: "Voltar para posts",
-      empty: "Nenhum post publicado ainda.",
+        "O que estou aprendendo enquanto construo com IA, backends e tudo que aparece no caminho.",
+      readMore: "Ler nota",
+      backToPosts: "Voltar as notas",
+      empty: "Ainda nao tem nada aqui.",
       publishedOn: "Publicado em",
     },
     hero: {
-      badge: "Disponivel para freela",
-      intro: "Oi, eu sou",
-      role: "Engenharia de Software",
-      descriptionHighlight: "Engenheiro de Software",
+      badge: "Software / IA / Produto",
+      role: "Engenheiro de software",
       description:
-        "eu desenvolvo software sob demanda: apps web, ferramentas internas, APIs e automacoes com IA para cada negocio.",
-      ctaPrimary: "Vamos conversar",
-      ctaSecondary: "Ver projetos",
-      cardTitle: "Foco em freela",
-      cardStatus: "Disponivel",
+        "Transformo ideias dificeis de explicar em produtos digitais, ferramentas simples e recursos de IA que funcionam de verdade no dia a dia.",
+      ctaPrimary: "Ver curriculo",
+      ctaSecondary: "Ver meus projetos",
       cardBullets: [
-        "Apps web sob medida",
-        "Ferramentas internas uteis",
-        "APIs e automacoes com IA",
+        "Produtos web e experiencias digitais",
+        "Sistemas que conectam tudo",
+        "Ferramentas de IA que poupam tempo",
       ],
       cardMeta: [],
-      logosAria: "Tecnologias",
+      logosAria: "Ferramentas que uso",
     },
     projects: {
-      titlePrefix: "Disponivel para",
-      titleAccent: "Freelance",
+      archiveLabel: "Algumas coisas que fiz",
+      titlePrefix: "Alguns",
+      titleAccent: "projetos",
       subtitle:
-        "Software sob demanda, construindo em cima do seu fluxo e metas do negocio.",
-      cards: [
-        {
-          title: "Frontend & Interfaces",
+        "Dois produtos que fiz para deixar o estudo mais simples - e um pouco menos pesado.",
+      projectLabel: "PROJETO",
+      liveLabel: "ONLINE",
+      consoleLabel: "PROJETOS.EXE / ARQUIVO PESSOAL",
+      consoleStatus: "2 sistemas online",
+      openLabel: "Ver projeto",
+      details: {
+        kindle2anki: {
           description:
-            "Desenvolvimento de interfaces para produtos e dashboards com UX clara, performance e entrega consistente.",
-          ctaText: "Disponivel - Construir interface",
+            "Leva seus destaques do Kindle direto para cards no Anki, prontos para revisar.",
+          tags: ["Kindle", "Anki", "Estudos"],
         },
-        {
-          title: "Desenvolvimento de Software",
+        kognilo: {
           description:
-            "Software sob demanda do planejamento ao deploy: backend, integracoes e arquitetura para operacao real.",
-          ctaText: "Disponivel - Planejar projeto",
+            "Um espaco de estudo mais tranquilo para transformar tempo espalhado em progresso de verdade.",
+          tags: ["IA", "Estudos", "Web app"],
         },
-        {
-          title: "Solucoes em IA & Chatbots",
-          description:
-            "Recursos de IA, chatbots e automacoes integrados ao seu produto ou fluxo interno.",
-          ctaText: "Disponivel - Adicionar IA",
-        },
-      ],
+      },
     },
     timeline: {
-      titleEmphasis: "Linha",
-      titleRest: "do tempo",
-      visitSite: "Visitar site",
-      present: "Atualmente",
+      archiveLabel: "Por onde passei",
+      titleEmphasis: "Carreira",
+      titleRest: "ate aqui",
+      visitSite: "Ver site",
+      present: "Hoje",
+      roles: {
+        aiSoftwareIntern: "Estagio em IA e Software",
+        numericalStatsTeachingAssistant: "Monitor de Estatistica",
+        microcontrollersTeachingAssistant: "Monitor de Microcontroladores",
+        cybersecurityAiResearchIntern: "Pesquisa em Ciberseguranca e IA",
+        telecommunicationsIntern: "Estagio em Telecom",
+        softwareAutomationIntern: "Estagio em Automacao de Software",
+      },
     },
     cta: {
-      title: "Pronto para construir algo real?",
+      title: "Tem uma ideia?",
       description:
-        "Vamos transformar sua proxima ideia em um produto seguro e escalavel com clareza e ritmo.",
-      button: "Comecar um projeto",
+        "Me conta no que voce esta trabalhando. A gente pensa no proximo passo juntos.",
+      button: "Vamos conversar",
     },
     contact: {
-      badge: "Contato",
-      title: "Vamos conversar",
+      badge: "Fale comigo",
+      title: "Vamos trocar uma ideia",
       description:
-        "Compartilhe suas ideias, prazos e escopo. Respondo rapido e mantenho a comunicacao clara.",
-      responseTag: "Resposta em 24-48h",
-      socialTitle: "Redes",
+        "Tem um projeto em mente ou so quer conversar? Me manda uma mensagem.",
+      socialTitle: "Me encontre por ai",
       socialSubtitle: "Links",
     },
     footer: {
       rights: "Todos os direitos reservados.",
-    },
-    misc: {
-      loading: "Carregando...",
     },
   },
 };

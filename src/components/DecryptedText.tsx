@@ -1,7 +1,6 @@
-import { useEffect, useState, useRef } from "react";
-import { motion, HTMLMotionProps } from "motion/react";
+import { useEffect, useState, useRef, type ComponentPropsWithoutRef } from "react";
 
-interface DecryptedTextProps extends HTMLMotionProps<"span"> {
+interface DecryptedTextProps extends ComponentPropsWithoutRef<"span"> {
   text: string;
   speed?: number;
   maxIterations?: number;
@@ -211,7 +210,7 @@ export default function DecryptedText({
       : {};
 
   return (
-    <motion.span
+    <span
       ref={containerRef}
       className={`inline-block whitespace-pre-wrap ${parentClassName}`}
       {...hoverProps}
@@ -234,6 +233,6 @@ export default function DecryptedText({
           );
         })}
       </span>
-    </motion.span>
+    </span>
   );
 }

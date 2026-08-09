@@ -1,0 +1,62 @@
+[
+  {
+    "_id": "fdaed959-27ef-4d30-8bb0-3775b7a67cd5",
+    "company": "PDI National Institute of Telecommunications (Inatel)",
+    "end": null,
+    "location": "Santa Rita do Sapucai, MG, Brazil",
+    "role": "aiSoftwareIntern",
+    "start": "2025-10-16T15:00:00.000Z",
+    "tech": ["Machine Learning", "Data Analysis", "Python", "Langchain", "Backend"],
+    "url": "https://inatel.br/"
+  },
+  {
+    "_id": "77265405-c23d-4fab-a218-aa4396eed4eb",
+    "company": "National Institute of Telecommunications (Inatel)",
+    "end": "2026-02-02T15:00:00.000Z",
+    "location": "Santa Rita do Sapucai, MG, Brazil",
+    "role": "numericalStatsTeachingAssistant",
+    "start": "2025-02-02T15:00:00.000Z",
+    "tech": ["Statistics", "Python", "Data Analysis"],
+    "url": "https://inatel.br/"
+  },
+  {
+    "_id": "402c1408-8e52-4745-9d78-01b8b9d54e75",
+    "company": "National Institute of Telecommunications (Inatel)",
+    "end": "2025-07-01T15:00:00.000Z",
+    "location": "Santa Rita do Sapucai, MG, Brazil",
+    "role": "microcontrollersTeachingAssistant",
+    "start": "2025-02-01T15:00:00.000Z",
+    "tech": ["C++", "Embedded Systems", "Communication"],
+    "url": "https://inatel.br/"
+  },
+  {
+    "_id": "59beb9d3-0cd3-4b79-a77d-d3b3d0be9bb8",
+    "company": "CS&I Lab - National Institute of Telecommunications (Inatel)",
+    "end": "2025-10-01T15:00:00.000Z",
+    "location": "Santa Rita do Sapucai, MG, Brazil",
+    "role": "cybersecurityAiResearchIntern",
+    "start": "2024-09-01T15:00:00.000Z",
+    "tech": ["Cybersecurity", "SOC", "Machine Learning", "Python", "LLM"],
+    "url": "https://inatel.br/"
+  },
+  {
+    "_id": "910793bd-db17-4826-9bba-be29484ab67f",
+    "company": "CIDC Inatel & Huawei",
+    "end": "2024-09-01T15:00:00.000Z",
+    "location": "Santa Rita do Sapucai, MG, Brazil",
+    "role": "telecommunicationsIntern",
+    "start": "2024-05-01T15:00:00.000Z",
+    "tech": ["Telecommunications", "Microsoft Office", "Signal Analysis"],
+    "url": "https://inatel.br/"
+  },
+  {
+    "_id": "ceb6eff3-1846-4866-bd52-1418b44bce69",
+    "company": "SSIC Inatel & Ericsson",
+    "end": "2024-04-01T15:00:00.000Z",
+    "location": "Santa Rita do Sapucai, MG, Brazil",
+    "role": "softwareAutomationIntern",
+    "start": "2023-09-01T15:00:00.000Z",
+    "tech": ["Java", "Python", "Documentation", "Automation", "Process Optimization"],
+    "url": "https://inatel.br/"
+  }
+]

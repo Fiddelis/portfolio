@@ -2,9 +2,10 @@ import type { Metadata } from "next";
 import localFont from "next/font/local";
 import { Analytics } from "@vercel/analytics/next";
 import "./globals.css";
-import { cookies, headers } from "next/headers";
-import { defaultLocale, isLocale } from "./i18n/config";
-import { SpeedInsights } from '@vercel/speed-insights/next';
+import { SpeedInsights } from "@vercel/speed-insights/next";
+import Script from "next/script";
+import { defaultLocale } from "./i18n/config";
+import { LocaleProvider } from "./i18n/LocaleProvider";
 
 const dosVga = localFont({
   src: "../../public/Perfect DOS VGA 437.ttf",
@@ -20,31 +21,32 @@ export const metadata: Metadata = {
   },
 };
 
-export default async function RootLayout({
+export default function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-  const cookieStore = await cookies();
-  const localeCookie = cookieStore.get("NEXT_LOCALE")?.value;
-  const localeHeader = (await headers()).get("x-locale") ?? undefined;
-  const locale = isLocale(localeHeader || localeCookie)
-    ? (localeHeader || localeCookie)
-    : defaultLocale;
-
   return (
-    <html lang={locale}>
+    <html lang={defaultLocale} suppressHydrationWarning>
       <body className={dosVga.variable}>
-        <div className="relative min-h-screen isolate">
-          <div className="absolute inset-0 -z-10 pointer-events-none">
-            <div className="h-full w-full site-diagonal-bg"></div>
+        <LocaleProvider>
+          <div className="relative min-h-[100svh] isolate">
+            <div className="absolute inset-0 -z-10 pointer-events-none">
+              <div className="h-full w-full site-diagonal-bg"></div>
+            </div>
+            <main className="relative min-h-[100svh]">
+              {children}
+              <Analytics />
+              <SpeedInsights />
+            </main>
+            <Script
+              src="https://static.cloudflareinsights.com/beacon.min.js"
+              strategy="afterInteractive"
+              data-cf-beacon='{"token":"ac1871303eca478484cd423bebb2de99","spa":true}'
+              suppressHydrationWarning
+            />
           </div>
-          <main className="relative">
-            {children}
-            <Analytics />
-            <SpeedInsights />
-          </main>
-        </div>
+        </LocaleProvider>
       </body>
     </html>
   );

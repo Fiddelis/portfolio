@@ -1,7 +1,6 @@
 "use client";
 
 import * as React from "react";
-import { motion } from "framer-motion";
 import { ExternalLink, MapPin, Briefcase, Calendar } from "lucide-react";
 import {
   BoxCard,
@@ -10,12 +9,14 @@ import {
   BoxCardTitle,
 } from "@/components/ui/box-card";
 import { Badge } from "@/components/ui/badge";
+import { useGsapReveal } from "@/app/hooks/useGsapReveal";
+import { gsap } from "gsap";
 
 export type TimelineItem = {
   company: string;
   role: string;
   start: string | Date;
-  end?: string | Date;
+  end?: string | Date | null;
   location?: string;
   description?: string;
   tech?: string[];
@@ -27,7 +28,9 @@ export type TimelineProps = {
   density?: "comfortable" | "compact";
   accentClassName?: string;
   showYearHeaders?: boolean;
+  locale?: string;
   labels?: {
+    archiveLabel: string;
     titleEmphasis: string;
     titleRest: string;
     visitSite: string;
@@ -36,17 +39,14 @@ export type TimelineProps = {
 };
 
 // ===================== Helpers =====================
-function toLabel(d: string | Date | undefined) {
+function toLabel(d: string | Date | null | undefined, locale?: string) {
   if (!d) return undefined;
-  if (typeof d === "string") return d;
-  try {
-    return new Intl.DateTimeFormat(undefined, {
-      month: "short",
-      year: "numeric",
-    }).format(d);
-  } catch {
-    return String(d);
-  }
+  const date = d instanceof Date ? d : new Date(d);
+  if (Number.isNaN(date.getTime())) return String(d);
+  return new Intl.DateTimeFormat(locale, {
+    month: "short",
+    year: "numeric",
+  }).format(date);
 }
 
 function groupByYear(items: TimelineItem[]) {
@@ -84,13 +84,28 @@ function Dot({ accentClassName }: { accentClassName?: string }) {
   );
 }
 
-function TimelineLine({ accentClassName }: { accentClassName?: string }) {
+function TimelineLine({
+  accentClassName,
+}: {
+  accentClassName?: string;
+}) {
+  const lineClassName =
+    accentClassName?.replace(/\bbg-/g, "text-") ?? "text-primary";
+
   return (
     <div
-      className={`absolute left-[0.62rem] sm:left-[0.45rem] top-0 h-full w-px ${
-        accentClassName ?? "bg-primary"
-      }`}
-    />
+      className="timeline-line absolute left-0 top-0 h-full"
+      aria-hidden="true"
+    >
+      <svg
+        className={lineClassName}
+        viewBox="0 0 1 1"
+        preserveAspectRatio="none"
+        focusable="false"
+      >
+        <g data-timeline-segments />
+      </svg>
+    </div>
   );
 }
 
@@ -98,13 +113,15 @@ function HeaderRow({
   item,
   density,
   presentLabel,
+  locale,
 }: {
   item: TimelineItem;
   density: TimelineProps["density"];
   presentLabel: string;
+  locale?: string;
 }) {
-  const start = toLabel(item.start);
-  const end = toLabel(item.end) ?? presentLabel;
+  const start = toLabel(item.start, locale);
+  const end = toLabel(item.end, locale) ?? presentLabel;
   return (
     <div
       className={`flex flex-wrap items-center gap-1.5 ${
@@ -146,11 +163,13 @@ function ItemCard({
   density,
   visitSiteLabel,
   presentLabel,
+  locale,
 }: {
   item: TimelineItem;
   density: TimelineProps["density"];
   visitSiteLabel: string;
   presentLabel: string;
+  locale?: string;
 }) {
   const headerClass =
     density === "compact" ? "px-4 pt-3 pb-2" : "px-6 pt-6 pb-2";
@@ -158,7 +177,10 @@ function ItemCard({
     density === "compact" ? "px-4 pb-3 pt-0" : "px-6 pb-6 pt-0";
 
   return (
-    <BoxCard>
+    <BoxCard
+      className="timeline-card border-2 border-foreground/80 bg-card"
+      data-timeline-item
+    >
       <BoxCardHeader className={headerClass}>
         <BoxCardTitle className="flex flex-wrap items-center gap-x-2 gap-y-1 text-sm sm:text-[0.9rem]">
           <span className="inline-flex items-center gap-1">
@@ -183,6 +205,7 @@ function ItemCard({
           item={item}
           density={density}
           presentLabel={presentLabel}
+          locale={locale}
         />
       </BoxCardHeader>
       <BoxCardContent className={contentClass}>
@@ -202,8 +225,227 @@ export function Timeline({
   density = "comfortable",
   accentClassName,
   showYearHeaders = true,
+  locale,
   labels,
 }: TimelineProps) {
+  const sectionRef = React.useRef<HTMLElement>(null);
+  const railRef = React.useRef<HTMLDivElement>(null);
+  useGsapReveal(sectionRef, { y: 28, duration: 0.65 });
+
+  React.useLayoutEffect(() => {
+    const section = sectionRef.current;
+    if (!section) return;
+
+    const context = gsap.context(() => {
+      const media = gsap.matchMedia();
+      const rail = railRef.current;
+      const line = rail?.querySelector<HTMLElement>(".timeline-line");
+      const segmentsGroup = rail?.querySelector<SVGGElement>(
+        "[data-timeline-segments]"
+      );
+      const svg = segmentsGroup?.ownerSVGElement;
+
+      const updateLine = () => {
+        if (!rail || !line || !segmentsGroup || !svg) return;
+
+        const railRect = rail.getBoundingClientRect();
+        const lineWidth = Math.max(line.clientWidth, 1);
+        const lineHeight = Math.max(railRect.height, 1);
+        const dots = Array.from(
+          rail.querySelectorAll<HTMLElement>("[data-timeline-dot]")
+        );
+        const points = dots.map((dot) => {
+          const rect = dot.getBoundingClientRect();
+          return {
+            x: rect.left + rect.width / 2 - railRect.left,
+            y: rect.top + rect.height / 2 - railRect.top,
+          };
+        });
+
+        svg.setAttribute("viewBox", `0 0 ${lineWidth} ${lineHeight}`);
+        if (!points.length) return;
+
+        const lastPoint = points[points.length - 1];
+        const segmentPoints = [
+          { from: { x: points[0].x, y: 0 }, to: points[0] },
+          ...points.slice(1).map((point, index) => ({
+            from: points[index],
+            to: point,
+          })),
+          { from: lastPoint, to: { x: lastPoint.x, y: lineHeight } },
+        ];
+        const existingSegments = Array.from(
+          segmentsGroup.querySelectorAll<SVGPathElement>(
+            "[data-timeline-segment]"
+          )
+        );
+        segmentPoints.forEach((segment, index) => {
+          const segmentPath =
+            existingSegments[index] ??
+            document.createElementNS("http://www.w3.org/2000/svg", "path");
+
+          segmentPath.setAttribute("data-timeline-segment", String(index));
+          segmentPath.setAttribute(
+            "d",
+            `M ${segment.from.x} ${segment.from.y} L ${segment.to.x} ${segment.to.y}`
+          );
+          segmentPath.setAttribute("fill", "none");
+          segmentPath.setAttribute("stroke", "currentColor");
+          segmentPath.setAttribute("stroke-linecap", "round");
+          segmentPath.setAttribute("stroke-linejoin", "miter");
+          segmentPath.setAttribute("stroke-width", "2");
+          segmentPath.setAttribute("vector-effect", "non-scaling-stroke");
+
+          if (!existingSegments[index]) {
+            segmentPath.style.opacity = "0";
+            segmentsGroup.append(segmentPath);
+          }
+        });
+
+        while (segmentsGroup.children.length > segmentPoints.length) {
+          segmentsGroup.lastElementChild?.remove();
+        }
+
+      };
+
+      updateLine();
+      const updateTimer = window.setTimeout(() => {
+        updateLine();
+        ScrollTrigger.refresh();
+      }, 0);
+      const handleResize = () => {
+        updateLine();
+        ScrollTrigger.refresh();
+      };
+      window.addEventListener("resize", handleResize);
+
+      media.add(
+        {
+          reduceMotion: "(prefers-reduced-motion: reduce)",
+          noPreference: "(prefers-reduced-motion: no-preference)",
+        },
+        (mediaContext) => {
+          const cards = Array.from(
+            section.querySelectorAll<HTMLElement>("[data-timeline-item]")
+          );
+          const dots = Array.from(
+            section.querySelectorAll<HTMLElement>("[data-timeline-dot]")
+          );
+          const segments = Array.from(
+            section.querySelectorAll<SVGPathElement>(
+              "[data-timeline-segment]"
+            )
+          );
+
+          if (mediaContext.conditions?.reduceMotion) {
+            gsap.set([...cards, ...dots], { autoAlpha: 1, scale: 1, y: 0 });
+            segments.forEach((segment) => {
+              segment.style.opacity = "1";
+            });
+            return;
+          }
+
+          cards.forEach((card, index) => {
+            const dot = dots[index];
+            if (!dot) return;
+            const segment = segments[index];
+
+            const reveal = gsap.timeline({
+              scrollTrigger: {
+                trigger: card,
+                // Reveal every point as soon as its card enters the viewport;
+                // the final cards otherwise cannot reach the old 84% trigger.
+                start: "top 72%",
+                toggleActions: "play none none none",
+              },
+            });
+
+            if (segment) {
+              reveal.to(
+                segment,
+                {
+                  opacity: 1,
+                  duration: 0.08,
+                  ease: "steps(1)",
+                },
+                0
+              );
+            }
+
+            if (index === cards.length - 1) {
+              const tail = segments[segments.length - 1];
+              if (tail && tail !== segment) {
+                reveal.to(
+                  tail,
+                  { opacity: 1, duration: 0.08, ease: "steps(1)" },
+                  0
+                );
+              }
+            }
+
+            reveal
+              .fromTo(
+                dot,
+                { autoAlpha: 0, scale: 0.35 },
+                {
+                  autoAlpha: 1,
+                  scale: 1.16,
+                  duration: 0.12,
+                  ease: "steps(2)",
+                },
+                0
+              )
+              .to(
+                dot,
+                {
+                  scale: 1,
+                  duration: 0.05,
+                  ease: "steps(1)",
+                },
+                0.12
+              )
+              .fromTo(
+                card,
+                {
+                  autoAlpha: 0,
+                  scale: 0.78,
+                  y: 14,
+                  rotation: -1,
+                  transformOrigin: "center bottom",
+                },
+                {
+                  autoAlpha: 1,
+                  scale: 1.06,
+                  y: 0,
+                  rotation: 0,
+                  duration: 0.16,
+                  ease: "steps(2)",
+                },
+                0.04
+              )
+              .to(
+                card,
+                {
+                  scale: 1,
+                  duration: 0.06,
+                  ease: "steps(1)",
+                },
+                0.2
+              );
+          });
+        }
+      );
+
+      return () => {
+        window.clearTimeout(updateTimer);
+        window.removeEventListener("resize", handleResize);
+        media.revert();
+      };
+    }, section);
+
+    return () => context.revert();
+  }, []);
+
   const sorted = React.useMemo(() => {
     return [...items].sort((a, b) => {
       const da =
@@ -224,78 +466,82 @@ export function Timeline({
     [sorted, showYearHeaders]
   );
 
+  const archiveLabel = labels?.archiveLabel ?? "Where I've worked";
   const titleEmphasis = labels?.titleEmphasis ?? "Career";
   const titleRest = labels?.titleRest ?? "Timeline";
   const visitSiteLabel = labels?.visitSite ?? "Visit site";
   const presentLabel = labels?.present ?? "Present";
 
   return (
-    <motion.section
+    <section
+      ref={sectionRef}
       className="flex flex-col gap-6 sm:gap-8 text-center"
-      initial={{ opacity: 0, y: 20 }}
-      animate={{ opacity: 1, y: 0 }}
-      transition={{ duration: 0.8, ease: "easeOut" }}
     >
-      <h1 className="self-center text-xl font-bold tracking-tight text-center sm:text-2xl">
-        <span className="text-primary">{titleEmphasis}</span>{" "}
-        {titleRest}
-      </h1>
+      <div className="text-center">
+        <div className="mb-3 text-xs uppercase tracking-[0.3em] text-muted-foreground">
+          {"//"} {archiveLabel}
+        </div>
+        <h2 className="self-center text-xl font-bold tracking-tight text-center sm:text-2xl">
+          <span className="text-primary">{titleEmphasis}</span>{" "}
+          {titleRest}
+        </h2>
+      </div>
 
-      <div className="relative">
+      <div ref={railRef} className="relative">
         <TimelineLine accentClassName={accentClassName} />
 
         <div className="space-y-3 sm:space-y-5">
-          {groups.map((g, gi) => (
-            <div key={gi} className="relative">
-              {showYearHeaders && g.year && (
-                <div className="mb-2 sm:mb-3 ml-8 sm:ml-7 select-none text-[0.65rem] sm:text-xs font-medium uppercase tracking-[0.25em] text-muted-foreground">
-                  {g.year}
-                </div>
-              )}
-              <ul className="space-y-3 sm:space-y-5">
-                {g.nodes.map((item, i) => (
-                  <li
-                    key={`${g.year}-${i}`}
-                    className="relative grid grid-cols-[1.25rem_1fr] sm:grid-cols-[0.9rem_1fr] gap-x-4 sm:gap-x-3"
-                  >
-                    {/* Dot */}
-                    <div className="flex items-start justify-center">
-                      <motion.div
-                        initial={{ scale: 0.7, opacity: 0 }}
-                        whileInView={{ scale: 1, opacity: 1 }}
-                        viewport={{ once: true }}
-                        transition={{
-                          type: "spring",
-                          stiffness: 160,
-                          damping: 18,
-                        }}
-                      >
-                        <Dot accentClassName={accentClassName} />
-                      </motion.div>
-                    </div>
+          {groups.map((g, gi) => {
+            const groupOffset = groups
+              .slice(0, gi)
+              .reduce((total, group) => total + group.nodes.length, 0);
 
-                    {/* Content */}
-                    <motion.div
-                      initial={{ y: 8, opacity: 0 }}
-                      whileInView={{ y: 0, opacity: 1 }}
-                      viewport={{ once: true }}
-                      transition={{ duration: 0.28, ease: "easeOut" }}
-                      className="-mt-1"
-                    >
-                      <ItemCard
-                        item={item}
-                        density={density}
-                        visitSiteLabel={visitSiteLabel}
-                        presentLabel={presentLabel}
-                      />
-                    </motion.div>
-                  </li>
-                ))}
-              </ul>
-            </div>
-          ))}
+            return (
+              <div key={gi} className="relative">
+                {showYearHeaders && g.year && (
+                  <div className="mb-2 sm:mb-3 ml-8 sm:ml-7 select-none text-[0.65rem] sm:text-xs font-medium uppercase tracking-[0.25em] text-muted-foreground">
+                    {g.year}
+                  </div>
+                )}
+                <ul className="space-y-3 sm:space-y-5">
+                  {g.nodes.map((item, i) => {
+                    const timelineIndex = groupOffset + i;
+
+                    return (
+                      <li
+                        key={`${g.year}-${i}`}
+                        className="relative grid grid-cols-[1.25rem_1fr] gap-x-4 sm:grid-cols-[0.9rem_1fr] sm:gap-x-3"
+                        data-timeline-side={
+                          timelineIndex % 2 === 0 ? "left" : "right"
+                        }
+                      >
+                        {/* Dot */}
+                        <div
+                          data-timeline-dot
+                          className="timeline-dot-cell flex items-start justify-center"
+                        >
+                          <Dot accentClassName={accentClassName} />
+                        </div>
+
+                        {/* Content */}
+                        <div className="-mt-1">
+                          <ItemCard
+                            item={item}
+                            density={density}
+                            visitSiteLabel={visitSiteLabel}
+                            presentLabel={presentLabel}
+                            locale={locale}
+                          />
+                        </div>
+                      </li>
+                    );
+                  })}
+                </ul>
+              </div>
+            );
+          })}
         </div>
       </div>
-    </motion.section>
+    </section>
   );
 }
