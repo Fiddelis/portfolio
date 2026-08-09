@@ -33,7 +33,7 @@ type ProjectsProps = {
 
 export default function Projects({ copy, cta }: ProjectsProps) {
   const sectionRef = useRef<HTMLElement>(null);
-  useGsapReveal(sectionRef, { y: 28, duration: 0.65 });
+  useGsapReveal(sectionRef, { y: 28, duration: 0.65, start: "top 60%" });
 
   useLayoutEffect(() => {
     const section = sectionRef.current;
