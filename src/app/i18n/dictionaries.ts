@@ -76,13 +76,13 @@ const dictionaries: Record<Locale, Dictionary> = {
     nav: {
       home: "Home",
       projects: "Work",
-      posts: "Notes",
+      posts: "Posts",
       contact: "Contact",
     },
     blog: {
       title: "Notes",
       subtitle:
-        "Things I'm learning while building with AI, backend systems, and everything around them.",
+        "Notes on what I'm building, learning, and figuring out along the way.",
       readMore: "Read note",
       backToPosts: "Back to notes",
       empty: "Nothing here yet.",
@@ -164,13 +164,13 @@ const dictionaries: Record<Locale, Dictionary> = {
     nav: {
       home: "Inicio",
       projects: "Projetos",
-      posts: "Notas",
+      posts: "Posts",
       contact: "Contato",
     },
     blog: {
       title: "Notas",
       subtitle:
-        "O que estou aprendendo enquanto construo com IA, backends e tudo que aparece no caminho.",
+        "Notas sobre o que estou construindo, aprendendo e descobrindo pelo caminho.",
       readMore: "Ler nota",
       backToPosts: "Voltar as notas",
       empty: "Ainda nao tem nada aqui.",

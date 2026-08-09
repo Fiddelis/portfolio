@@ -30,9 +30,39 @@ export default function Nav({ labels, locale, onLocaleChange }: NavProps) {
           noPreference: "(prefers-reduced-motion: no-preference)",
         },
         (mediaContext) => {
+          const postsLinks = nav.querySelectorAll<HTMLElement>(
+            "[data-posts-link]"
+          );
+          gsap.set(postsLinks, { color: "var(--primary)" });
+
           if (mediaContext.conditions?.reduceMotion) {
             gsap.set(nav, { autoAlpha: 1, y: 0, scaleY: 1 });
             return;
+          }
+
+          if (postsLinks.length > 0) {
+            gsap
+              .timeline({ repeat: -1, repeatDelay: 1.1 })
+              .to(postsLinks, {
+                color: "#d53030",
+                duration: 0.1,
+                ease: "steps(1)",
+              })
+              .to(postsLinks, {
+                autoAlpha: 0.35,
+                duration: 0.1,
+                ease: "steps(1)",
+              })
+              .to(postsLinks, {
+                autoAlpha: 1,
+                duration: 0.1,
+                ease: "steps(1)",
+              })
+              .to(postsLinks, {
+                color: "var(--primary)",
+                duration: 0.1,
+                ease: "steps(1)",
+              });
           }
 
           gsap.timeline()
@@ -202,7 +232,8 @@ export default function Nav({ labels, locale, onLocaleChange }: NavProps) {
           <li>
             <Link
               href="/posts"
-              className="cursor-target font-semibold text-primary transition-colors hover:text-secondary"
+              className="nav-posts-link cursor-target font-semibold text-primary transition-colors hover:text-secondary"
+              data-posts-link
             >
               {labels.posts}
             </Link>
@@ -248,7 +279,8 @@ export default function Nav({ labels, locale, onLocaleChange }: NavProps) {
             </Link>
             <Link
               href="/posts"
-              className="cursor-target transition-colors hover:text-primary"
+              className="nav-posts-link cursor-target font-semibold text-primary transition-colors hover:text-secondary"
+              data-posts-link
               onClick={() => setMenuOpen(false)}
             >
               {labels.posts}
