@@ -134,9 +134,12 @@ const dictionaries: Record<Locale, Dictionary> = {
       visitSite: "Visit site",
       present: "Present",
       roles: {
+        softwareDevelopmentAnalystII:
+          "Software Development Analyst II (Development & Artificial Intelligence)",
         aiSoftwareIntern: "AI & Software Intern",
         numericalStatsTeachingAssistant: "Statistics Teaching Assistant",
-        microcontrollersTeachingAssistant: "Microcontrollers Teaching Assistant",
+        microcontrollersTeachingAssistant:
+          "Microcontrollers Teaching Assistant",
         cybersecurityAiResearchIntern: "Cybersecurity and AI Research Intern",
         telecommunicationsIntern: "Telecommunications Intern",
         softwareAutomationIntern: "Software Automation Intern",
@@ -222,6 +225,8 @@ const dictionaries: Record<Locale, Dictionary> = {
       visitSite: "Ver site",
       present: "Hoje",
       roles: {
+        softwareDevelopmentAnalystII:
+          "Analista de Desenvolvimento de Software II",
         aiSoftwareIntern: "Estagio em IA e Software",
         numericalStatsTeachingAssistant: "Monitor de Estatistica",
         microcontrollersTeachingAssistant: "Monitor de Microcontroladores",

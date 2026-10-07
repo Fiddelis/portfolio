@@ -9,20 +9,20 @@ import { useGsapReveal } from "@/app/hooks/useGsapReveal";
 
 const projects = [
   {
-    id: "kindle2anki",
-    title: "Kindle2Anki",
-    link: "https://www.kindle2anki.app/",
-    imageSrc: "/projects/kindle2anki.png",
-    width: 1733,
-    height: 907,
-  },
-  {
     id: "kognilo",
     title: "Kognilo",
     link: "https://kognilo.com/",
     imageSrc: "/projects/kognilo.png",
     width: 1672,
     height: 941,
+  },
+  {
+    id: "kindle2anki",
+    title: "Kindle2Anki",
+    link: "https://www.kindle2anki.app/",
+    imageSrc: "/projects/kindle2anki.png",
+    width: 1733,
+    height: 907,
   },
 ] as const;
 
